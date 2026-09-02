@@ -169,6 +169,17 @@ assume the labels mean the same water; the point levels 186.13, 380.21 and
 1062.44 m that stood here until 2026-09-01 were the wrong quantity beside a
 column mean and are gone (D3, amended).
 
+**Zero is not missing in this model's ice fields.** `sithick`, `usi` and
+`vsi` are exactly 0 over open water, not NaN -- measured 2026-09-02, 96% of
+the ice-free cells -- and a particle layer draws a zero velocity as still
+water, while ESPC's thickness root publishes null there. So the fetcher nulls
+thickness and drift under 15% concentration and publishes the concentration
+itself unmasked. **The floor is the map's own** -- `FIELDS.sic.drawAbove` in
+the site's `scalar-layer.ts` -- stated once on each side and pinned to each
+other by a self-test that reads that file: change it in both places or the
+self-test refuses, which is the point. The bottom temperature is never
+masked; it exists under open water.
+
 **Do not pin the trailing dataset version.** Copernicus versions ids with a
 date suffix (`_202406`) and retires them on a schedule, so a hardcoded one
 ages; the toolbox warns about it and prefers `dataset_version`.

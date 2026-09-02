@@ -27,7 +27,9 @@ repository is on that repository as `mercator-model-fields-repo-checkout`,
 read-only; the Copernicus pair and `PIPELINES_SSH_KEY` are secrets here.
 
 **The set is decided and no longer blocking**: five scalars -- SST, SSS,
-SSH, temperature at 29 m and ocean heat content -- daily, at lead 0.
+SSH, temperature at 29 m and ocean heat content -- daily, at lead 0, and
+since 2026-09-02 four more off the daily 2-D dataset: ice concentration,
+thickness and velocity, and the bottom temperature (the record below).
 
 ## Why a second model, and why this one
 
@@ -184,6 +186,45 @@ at `depth 29.44` and 158 tiles, `ohc-mercator` in kJ/cm2 with **62 tiles**
 -- the tropics, and nothing where the surface is below 26 C, which is what
 "not applicable" should look like. Half the two-minute prediction, on the
 safe side again.
+
+## 2026-09-02 — ice concentration, thickness and velocity, and the bottom temperature, the owner's ask
+
+Four products off `cmems_mod_glo_phy_anfc_0.083deg_P1D-m`, the daily 2-D
+dataset the sea surface height already reads -- map-shaped chunks, eight a
+frame, so each is one more eight-chunk read. `sic-mercator` is `siconc`,
+`sit-mercator` is `sithick`, `icevel-mercator` is the `usi`/`vsi` pair in the
+currents' file shape at 0.001 m/s, and `bottomt-mercator` is `tob`, the
+model's bottom-layer temperature.
+
+**Zero is not missing in this model's ice.** Measured 2026-09-02 over a
+Greenland Sea box (lat 55-85, lon -70 to 0): 79.5% of the wet cells carried a
+thickness of exactly 0 m and 78.9% a drift of exactly 0 m/s; under 15%
+concentration, 96.1% of the cells had `usi == 0` and 96.8% `sithick == 0`.
+ESPC's `sit-navy` is null over open water (86.5% of its cells, read off the
+live root the same day), and a particle layer draws a zero velocity as still
+water. So thickness and velocity are nulled where `siconc < 0.15` -- the
+map's own floor for concentration, `FIELDS.sic.drawAbove`, which the
+fetcher's self-test reads off the site's `scalar-layer.ts` and refuses to
+drift from -- and the concentration itself publishes unmasked, zeros and all,
+as ESPC's does. Globally that nulled 83.3% of the wet cells in each of the
+three ice products. Five mutations of the mask and its wiring each failed the
+self-test before it was believed; a sixth was found to be a no-op edit and
+redone.
+
+**The ice velocity publishes here, not with the currents** -- D4. Same
+dataset, same daily hour as every scalar here; the currents are 6-hourly
+bracketing pairs with their own probe and their own fault domain.
+
+**Measured, locally, 2026-09-02:** the four products in about 34 s end to end
+-- concentration 3 s of fetch and 159 tiles (37 MB), thickness 3 s and 58
+tiles (14 MB), velocity 7 s and 58 tiles (24 MB), bottom temperature 4 s and
+159 tiles (48 MB); roots 273, 307, 585 and 349 KB. Under the pack the 99th
+percentile of ice speed was 0.24 m/s against the surface current's 1.01, so
+the map's ramp for the drift tops out at 0.5 m/s with the currents' own
+headroom. Bottom temperature ran -2.4 to 35.5 degrees C globally and draws on
+the surface temperature's scale so the two read against each other. The
+contract passed all four roots and their tiers in isolation. The runner's
+own numbers belong here after its first run.
 
 ## Open
 

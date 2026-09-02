@@ -41,7 +41,7 @@ timeout_minutes = 30
 # nothing here -- and naming the lane after the service keeps that true when a
 # second Copernicus product lands beside it.
 [steps.mercator]
-cmd = ["python3", "scripts/fetch-mercator.py", "--only=sst-mercator,sss-mercator,ssh-mercator,temp29-mercator,ohc-mercator"]
+cmd = ["python3", "scripts/fetch-mercator.py", "--only=sst-mercator,sss-mercator,ssh-mercator,temp29-mercator,ohc-mercator,sic-mercator,sit-mercator,icevel-mercator,bottomt-mercator"]
 lane = "copernicus"
 
 # **Hours, and they are the upstream's rather than ours.** `max_age_hours`
@@ -180,4 +180,80 @@ key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=ssh-mercato
 cache = "mercator-ssh-tiles"
 match = [
   ["tiles-ssh-mercator", "ssh-mercator.json"],
+]
+
+# **Four more off the daily 2-D product, 2026-09-02, at the owner's ask** --
+# and the ice VELOCITY publishes here rather than with the currents, which is
+# this repository's D3: it is a vector, but it is one daily frame off the
+# dataset the sea surface height already reads, on the same hour as every
+# scalar here, where the currents are 6-hourly bracketing pairs. A product
+# joins the repository that shares its cadence and its fault domain, not the
+# one that shares its file shape.
+#
+# The concentration publishes unmasked, zeros over open water like ESPC's;
+# thickness and velocity are nulled under 15% concentration -- this model writes
+# 0 m and 0 m/s over open water rather than missing -- so the thickness reads
+# like ESPC's and the drift does not draw a still ocean.
+[products.sic-mercator]
+title = "Mercator Ocean sea ice concentration"
+step = "mercator"
+roots = ["sic-mercator.json"]
+writes = ["sic-mercator*.json"]
+max_age_hours = 30
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=sic-mercator"]
+
+[products.sic-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=sic-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=sic-mercator"]
+cache = "mercator-sic-tiles"
+match = [
+  ["tiles-sic-mercator", "sic-mercator.json"],
+]
+
+[products.sit-mercator]
+title = "Mercator Ocean sea ice thickness"
+step = "mercator"
+roots = ["sit-mercator.json"]
+writes = ["sit-mercator*.json"]
+max_age_hours = 30
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=sit-mercator"]
+
+[products.sit-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=sit-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=sit-mercator"]
+cache = "mercator-sit-tiles"
+match = [
+  ["tiles-sit-mercator", "sit-mercator.json"],
+]
+
+[products.icevel-mercator]
+title = "Mercator Ocean sea ice velocity"
+step = "mercator"
+roots = ["icevel-mercator.json"]
+writes = ["icevel-mercator*.json"]
+max_age_hours = 30
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=icevel-mercator"]
+
+[products.icevel-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=icevel-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=icevel-mercator"]
+cache = "mercator-icevel-tiles"
+match = [
+  ["tiles-icevel-mercator", "icevel-mercator.json"],
+]
+
+[products.bottomt-mercator]
+title = "Mercator Ocean bottom temperature"
+step = "mercator"
+roots = ["bottomt-mercator.json"]
+writes = ["bottomt-mercator*.json"]
+max_age_hours = 30
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=bottomt-mercator"]
+
+[products.bottomt-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=bottomt-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=bottomt-mercator"]
+cache = "mercator-bottomt-tiles"
+match = [
+  ["tiles-bottomt-mercator", "bottomt-mercator.json"],
 ]

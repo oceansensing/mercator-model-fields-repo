@@ -74,6 +74,19 @@ One-way in the first sense this file names: resolution, depth and lead are the
 shape readers code against. Dropping a depth strands anything built on it, and
 renaming one silently changes which water a filename promises.
 
+## D4 — 2026-09-02 — The ice velocity publishes here, not with the currents
+
+A vector, in the currents' own u/v file shape, and it lives in the fields
+repository. The convention D2 records splits by what costs bytes and what
+fails together, not by file shape: this is one daily frame off the 2-D
+dataset every scalar here reads, on the same hour, 58 tiles and 24 MB against
+the currents' ten tiers -- and the currents are 6-hourly bracketing pairs on
+their own probe. A product joins the half that shares its cadence and its
+fault domain.
+
+One-way in the second sense above: moving it later costs the contract's
+roots, the site's origin routing and every link that named it.
+
 ## Open, and not decided here
 
 Whether the two halves share a cadence: currents are 6-hourly and scalars
