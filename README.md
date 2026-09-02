@@ -62,8 +62,8 @@ line.
 
 A build was five scalars in 63 s (run 33578824264), 17 s of it the heat
 content over 29 levels, 62 tropical tiles — the four 2-D products added on
-2026-09-02 cost 34 s more on a laptop, most of it tiles (`PLAN.md` has the
-split; the runner's own number goes there after its first run); the "20 frames, 672 MB, 12.5
+2026-09-02 cost **34 s** more on the runner too (run 33594265757: nine
+products in 54 s), most of it tiles -- `PLAN.md` has the split; the "20 frames, 672 MB, 12.5
 minutes" once quoted here was a currents figure on the slow path and never
 described this repository. `PLAN.md` has the reasoning.
 
