@@ -28,7 +28,8 @@
 # Restore/Save pair in the same commit -- `plan` warns about a declared cache
 # nothing restores, and about a Restore step whose key no product declares.
 #
-# Cost of one run: three surface scalars -- three frames, under a minute.
+# Cost of one run: three surface scalars, a 29 m temperature and heat content
+# off a 29-level profile -- about 33 level reads, predicted two minutes with no dask.
 on:
   # **No `mode` input, because there is no longer a mode.** It offered
   # `full | light` and passed the choice straight to `orchestrate.py plan
@@ -254,6 +255,18 @@ jobs:
           path: ${{ steps.plan.outputs.cache-paths-mercator-ssh-tiles }}
           key: ${{ steps.plan.outputs.cache-key-mercator-ssh-tiles }}
 
+      - name: Restore temp29 tiles
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-temp29-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-temp29-tiles }}
+
+      - name: Restore ohc tiles
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-ohc-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-ohc-tiles }}
+
       - name: Fetch, validate, assemble
         id: run
         env:
@@ -291,6 +304,20 @@ jobs:
         with:
           path: ${{ steps.plan.outputs.cache-paths-mercator-ssh-tiles }}
           key: ${{ steps.plan.outputs.cache-key-mercator-ssh-tiles }}
+
+      - name: Save temp29 tiles
+        if: steps.run.outputs.built-mercator-temp29-tiles == 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-temp29-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-temp29-tiles }}
+
+      - name: Save ohc tiles
+        if: steps.run.outputs.built-mercator-ohc-tiles == 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-ohc-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-ohc-tiles }}
 
       - name: Upload the site
         if: steps.run.outputs.deploy == 'true'

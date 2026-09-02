@@ -40,7 +40,7 @@ timeout_minutes = 30
 # nothing here -- and naming the lane after the service keeps that true when a
 # second Copernicus product lands beside it.
 [steps.mercator]
-cmd = ["python3", "scripts/fetch-mercator.py", "--only=sst-mercator,sss-mercator,ssh-mercator"]
+cmd = ["python3", "scripts/fetch-mercator.py", "--only=sst-mercator,sss-mercator,ssh-mercator,temp29-mercator,ohc-mercator"]
 lane = "copernicus"
 
 # **Hours, and they are the upstream's rather than ours.** `max_age_hours`
@@ -77,6 +77,50 @@ key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=sst-mercato
 cache = "mercator-sst-tiles"
 match = [
   ["tiles-sst-mercator", "sst-mercator.json"],
+]
+
+[products.temp29-mercator]
+# **29 m, not 30 -- the model's level 14 is 29.445 m** (the owner's z14,
+# 2026-09-01), and the root is named for the depth that is actually there,
+# as `cur-mercator-47m` is. The same quantity as ESPC's `temp30-navy`, off
+# the daily temperature product.
+title = "Mercator Ocean temperature at 29 m"
+step = "mercator"
+roots = ["temp29-mercator.json"]
+writes = ["temp29-mercator*.json"]
+max_age_hours = 30
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=temp29-mercator"]
+
+[products.temp29-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=temp29-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=temp29-mercator"]
+cache = "mercator-temp29-tiles"
+match = [
+  ["tiles-temp29-mercator", "temp29-mercator.json"],
+]
+
+[products.ohc-mercator]
+# **Tropical cyclone heat potential, the same quantity as ESPC's `ohc-navy`
+# and the same constants**: rho * cp * the integral of (T - 26 C) from the
+# 26 C isotherm to the surface, in kJ/cm2, off the daily temperature
+# profile -- every level to 300 m plus one, about 29 reads. Where the surface
+# is at or below 26 C the cell is absent, not zero; where the column is
+# still warm at the bottom of the read the cell is absent and counted in
+# the run log. The site's fetcher holds its integral against ESPC's function
+# as the oracle.
+title = "Mercator Ocean heat content"
+step = "mercator"
+roots = ["ohc-mercator.json"]
+writes = ["ohc-mercator*.json"]
+max_age_hours = 30
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=ohc-mercator"]
+
+[products.ohc-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=ohc-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=ohc-mercator"]
+cache = "mercator-ohc-tiles"
+match = [
+  ["tiles-ohc-mercator", "ohc-mercator.json"],
 ]
 
 [products.sss-mercator]

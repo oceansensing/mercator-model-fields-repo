@@ -161,6 +161,22 @@ Caches are per product. The key is computed per product, so products sharing
 one cache name would each save over the others and every restore would be
 somebody else's tier.
 
+## 2026-09-01 — a 29 m temperature and heat content, the owner's ask
+
+Two more products off the same daily temperature dataset. **`temp29-mercator`**
+is level index 14, 29.445 m -- the owner asked for "30 m (z14)", and the root
+is named for the depth that is actually there, as the currents' `-47m` is;
+one string to change if "30" is preferred. **`ohc-mercator`** is tropical
+cyclone heat potential, the quantity ESPC's `ohc-navy` publishes: every level
+to 300 m plus one (29 reads, to 318.127 m), integrated by a streamed
+vectorized form of ESPC's `heat_potential` -- same constants, same three
+answers (absent where the surface is at or below 26 C, a number where the
+column crosses 26 C or hits the seafloor, absent and COUNTED where it is still
+warm at the bottom of the read). The site's fetcher self-test imports ESPC's
+function and uses it as the oracle on 400 random columns; five mutations of
+the integral each fail it. Predicted: about 33 level reads a build, two
+minutes.
+
 ## Open
 
 1. **The set count** — how many depths, how many leads. An ESPC-shaped set

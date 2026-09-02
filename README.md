@@ -1,16 +1,24 @@
 # mercator-model-fields-repo
 
-Mercator ocean scalar fields for the C4PO ocean map — **the scalar fields from the same run — temperature, salinity and sea surface height**.
+Mercator ocean scalar fields for the C4PO ocean map — **the scalar fields from the same run: temperature at the surface and at 29 m, salinity, sea surface height, and ocean heat content**.
 
 **It publishes, since 2026-09-01.** `pipeline/products.toml` declares the
 products, the workflow builds them four times a day, and the site draws
-three surface scalars — temperature, salinity and sea surface height under names that carry the model.
+five scalar fields under names that carry the model:
+
+| root | what it is |
+| --- | --- |
+| `sst-mercator.json` | temperature at 0.49 m |
+| `temp29-mercator.json` | temperature at **29.445 m** — the model's level 14, its nearest to ESPC's 30 m |
+| `sss-mercator.json` | salinity at 0.49 m |
+| `ssh-mercator.json` | sea surface height |
+| `ohc-mercator.json` | **tropical cyclone heat potential**, ρ·c_p ∫(T − 26 °C) dz from the 26 °C isotherm to the surface, in kJ/cm², off the daily profile — the same quantity and constants as ESPC's `ohc-navy`, held against ESPC's own function as the oracle |
 
 **The layer names carry the depth that is actually there**, not ESPC's
-nearest: 47 m against 50, 186 against 200, 380 against 350, 1062 against
-1000. Naming them for ESPC's round numbers so the two lists lined up would
-say the layers are comparable at the same depth when 380 against 350 is 9%
-deeper water.
+nearest: 29 m against 30 here, 47 m against 50 in the currents. Naming them
+for ESPC's round numbers so the two lists lined up would say the layers are
+comparable at the same depth when they are not quite; 29.445 against 30 is
+small, and the rule is the rule.
 
 `PLAN.md` carries the measurements and what is open. `DECISIONS.md` indexes
 the dated one-way decisions. **Which document gets what, and what "update
@@ -25,7 +33,7 @@ docs" means across all ten repositories, is the doctrine block at the top of
 | source | Mercator Ocean International, via Copernicus Marine (CMEMS) |
 | product | `GLOBAL_ANALYSISFORECAST_PHY_001_024` |
 | dataset | `cmems_mod_glo_phy-thetao / -so / _anfc_0.083deg_P1D-m` |
-| variables | `thetao`, `so`, `zos` |
+| variables | `thetao` (surface, 29 m, and the profile to 300 m for heat content), `so`, `zos` |
 | resolution | **0.083 deg (1/12 deg)**, 2041 x 4320 global |
 | cadence | daily |
 | access | the `copernicusmarine` toolbox over Zarr; account required |
