@@ -1,4 +1,5 @@
-# What this repository publishes: the Mercator Ocean SCALAR FIELDS -- temperature, salinity and sea surface height, and nothing else.
+# What this repository publishes: the Mercator Ocean SCALAR FIELDS -- SST, SSS,
+# SSH, temperature at 29 m and ocean heat content, and nothing else.
 #
 # **A PEER to ESPC, not a fallback** (`DECISIONS.md` D1). Both models are
 # fetched every run and the reader chooses; nothing switches over, and the
@@ -71,8 +72,8 @@ namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=sst-
 [products.sst-mercator.tiles]
 build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=sst-mercator"]
 key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=sst-mercator"]
-# **Its own cache, not one shared across the three.** The key is computed per
-# product, so three products writing one cache name would each save over the
+# **Its own cache, not one shared across the five.** The key is computed per
+# product, so products writing one cache name would each save over the
 # others and every restore would be somebody else's tier.
 cache = "mercator-sst-tiles"
 match = [
@@ -144,8 +145,8 @@ namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=sss-
 [products.sss-mercator.tiles]
 build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=sss-mercator"]
 key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=sss-mercator"]
-# **Its own cache, not one shared across the three.** The key is computed per
-# product, so three products writing one cache name would each save over the
+# **Its own cache, not one shared across the five.** The key is computed per
+# product, so products writing one cache name would each save over the
 # others and every restore would be somebody else's tier.
 cache = "mercator-sss-tiles"
 match = [
@@ -173,8 +174,8 @@ namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=ssh-
 [products.ssh-mercator.tiles]
 build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=ssh-mercator"]
 key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=ssh-mercator"]
-# **Its own cache, not one shared across the three.** The key is computed per
-# product, so three products writing one cache name would each save over the
+# **Its own cache, not one shared across the five.** The key is computed per
+# product, so products writing one cache name would each save over the
 # others and every restore would be somebody else's tier.
 cache = "mercator-ssh-tiles"
 match = [

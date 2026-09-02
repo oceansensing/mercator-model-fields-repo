@@ -1,7 +1,7 @@
 # mercator-model-fields-repo — the founding plan and running record
 
-The fields half of a Mercator Ocean peer to ESPC. **Nothing runs yet**: this
-records what was measured before anything was built, and what is still open.
+The fields half of a Mercator Ocean peer to ESPC. **It publishes**: this
+records what was measured, what was built, and what is still open.
 
 ## Where it stands
 
@@ -15,8 +15,8 @@ a scalar frame came back at 360x171, 1.0 deg, -2.093 to 35.76 degrees C, and a
 currents frame at +/-1.75 m/s with wet counts falling and speeds weakening
 with depth. Numbers that would not survive a transform fault.
 
-**The probe is what makes a schedule affordable.** A full run here is
-3 frames, under a minute; the probe reads the upstream's time axis -- metadata, about 5 s --
+**The probe is what makes a schedule affordable.** A full run here is five
+scalars in 63 s (run 33578824264), 17 s of it the heat content; the probe reads the upstream's time axis -- metadata, about 5 s --
 and compares it against the `refTime` on disk, so a run with nothing new costs
 seconds. It also rebuilds when this script would publish something the disk
 does not have, because a probe watching only the upstream cannot see a change
@@ -26,10 +26,8 @@ Created 2026-09-01 with its four documents and its credentials. The deploy key t
 repository is on that repository as `mercator-model-fields-repo-checkout`,
 read-only; the Copernicus pair and `PIPELINES_SSH_KEY` are secrets here.
 
-**The set count was decided and is no longer blocking**: five depths matching
-ESPC's as closely as this grid allows, and two leads -- parity with ESPC
-rather than the +9 days on offer. A starting shape, not a ceiling: leads are
-the cheap axis to grow and depth is not.
+**The set is decided and no longer blocking**: five scalars -- SST, SSS,
+SSH, temperature at 29 m and ocean heat content -- daily, at lead 0.
 
 ## Why a second model, and why this one
 
@@ -189,21 +187,15 @@ safe side again.
 
 ## Open
 
-1. **The set count** — how many depths, how many leads. An ESPC-shaped set
-   (five depths x two leads x two components) is 20 frames and **672 MB**;
-   *12.5 minutes a build* was its price on the slow path and is not its price
-   now. Mercator offers forecast to +9 days against ESPC's two leads, so this
-   is a choice with a price rather than a copy.
-   **Do not size it from ESPC's 738.7 MB**: that number was measured against
-   OPeNDAP, which charges for different things than Zarr does.
-2. **Published resolution and extent** — waiting on a byte measurement of the
-   output, the way the ocean color tier was.
-3. **Whether the two halves share a cadence.** Currents are 6-hourly and the
+1. **More leads.** The upstream carries forecast to +9 days and this
+   publishes two steps; leads are the cheap axis (a lead is one more pass at
+   about a minute) and the map's ladder already lists whatever is published.
+   *(The set count, the published resolution and the layer names were all
+   settled on 2026-09-01 -- D3 and its amendment, the tile tier record above,
+   and the site's switcher -- and are no longer open.)*
+2. **Whether the two halves share a cadence.** Currents are 6-hourly and the
    scalars daily upstream, so a shared publish hour is a decision, not a
    given.
-4. **How the map names two models' layers** so a reader is never guessing
-   which ocean is on screen — including that the depths differ: 380.21 m here
-   against ESPC's 350 m is 9% deeper.
 
 ## Method note
 
