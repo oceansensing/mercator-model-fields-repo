@@ -177,6 +177,16 @@ function and uses it as the oracle on 400 random columns; five mutations of
 the integral each fail it. Predicted: about 33 level reads a build, two
 minutes.
 
+**Measured, run 33578824264, 2026-09-02 01:18Z, a 4-cpu runner:** all five
+products fetched and written in **63 s** -- the surface scalars about 11 s
+each, the 29 m temperature 10 s, and the heat content **17 s** for its 29
+levels, with **0 columns** still above 26 C at 318 m. It deployed: the fields
+origin served both roots and their tiers within a minute, `temp29-mercator`
+at `depth 29.44` and 158 tiles, `ohc-mercator` in kJ/cm2 with **62 tiles**
+-- the tropics, and nothing where the surface is below 26 C, which is what
+"not applicable" should look like. Half the two-minute prediction, on the
+safe side again.
+
 ## Open
 
 1. **The set count** — how many depths, how many leads. An ESPC-shaped set
