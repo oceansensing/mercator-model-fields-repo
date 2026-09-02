@@ -223,8 +223,15 @@ percentile of ice speed was 0.24 m/s against the surface current's 1.01, so
 the map's ramp for the drift tops out at 0.5 m/s with the currents' own
 headroom. Bottom temperature ran -2.4 to 35.5 degrees C globally and draws on
 the surface temperature's scale so the two read against each other. The
-contract passed all four roots and their tiers in isolation. The runner's
-own numbers belong here after its first run.
+contract passed all four roots and their tiers in isolation.
+
+**Measured on the runner, run 33594265757, 2026-09-02 05:20Z, 4 cpus:** the
+four in **34.3 s** -- concentration 9.1 s, thickness 7.9 s, velocity 7.3 s,
+bottom temperature 10.0 s, each about a third fetch and two thirds tiles --
+inside a nine-product fetch of **54 s**; 83.3% of the wet cells nulled in
+each ice product, the same as locally, and all nine fates `fresh` on the
+first run. The tile-cache Save steps were skipped, all nine, which is the
+known inert Save and not this change.
 
 ## Open
 

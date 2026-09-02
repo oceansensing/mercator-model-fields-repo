@@ -30,6 +30,8 @@
 #
 # Cost of one run, measured 2026-09-01 (run 33578824264): five scalars in 63 s,
 # 17 s of it the heat content over a 29-level profile, 62 tropical tiles.
+# With the four 2-D products of 2026-09-02 (run 33594265757): nine in 54 s,
+# the four in 34 s of it, most of that tiles.
 on:
   # **No `mode` input, because there is no longer a mode.** It offered
   # `full | light` and passed the choice straight to `orchestrate.py plan
