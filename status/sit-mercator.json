@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "sit-mercator",
+ "title": "Mercator Ocean sea ice thickness",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-09-05T20:59:24Z",
+ "updated": "2026-09-05T03:00:12Z",
+ "hour": "2026-09-05T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-09-05T00:00:00Z"
+ ],
+ "files": {
+  "sit-mercator.json": {
+   "bytes": 314300,
+   "sha256": "87ad8a22a3344d2d7033ea3f61f21868c8d0e1a3942ba87ae1dd51d3e659acf7"
+  }
+ },
+ "tiles": {
+  "tiles-sit-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}

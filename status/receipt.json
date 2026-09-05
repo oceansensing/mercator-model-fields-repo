@@ -1,0 +1,32 @@
+{
+ "schema": 1,
+ "generated": "2026-09-05T20:59:24Z",
+ "mode": "full",
+ "fates": {
+  "sst-mercator": "fresh",
+  "temp29-mercator": "fresh",
+  "ohc-mercator": "fresh",
+  "sss-mercator": "fresh",
+  "ssh-mercator": "fresh",
+  "sic-mercator": "fresh",
+  "sit-mercator": "fresh",
+  "icevel-mercator": "fresh",
+  "bottomt-mercator": "fresh"
+ },
+ "reasons": {},
+ "built": {},
+ "withheld": {
+  "sst-mercator": {},
+  "temp29-mercator": {},
+  "ohc-mercator": {},
+  "sss-mercator": {},
+  "ssh-mercator": {},
+  "sic-mercator": {},
+  "sit-mercator": {},
+  "icevel-mercator": {},
+  "bottomt-mercator": {}
+ },
+ "deploy": true,
+ "notes": [],
+ "behind": []
+}

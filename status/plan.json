@@ -1,0 +1,34 @@
+{
+ "schema": 1,
+ "generated": "2026-09-05T20:57:09Z",
+ "mode": "full",
+ "products": {
+  "sst-mercator": {
+   "tile_key": "sst-mercator20260905T000000Z"
+  },
+  "temp29-mercator": {
+   "tile_key": "temp29-mercator20260905T000000Z"
+  },
+  "ohc-mercator": {
+   "tile_key": "ohc-mercator20260905T000000Z"
+  },
+  "sss-mercator": {
+   "tile_key": "sss-mercator20260905T000000Z"
+  },
+  "ssh-mercator": {
+   "tile_key": "ssh-mercator20260905T000000Z"
+  },
+  "sic-mercator": {
+   "tile_key": "sic-mercator20260905T000000Z"
+  },
+  "sit-mercator": {
+   "tile_key": "sit-mercator20260905T000000Z"
+  },
+  "icevel-mercator": {
+   "tile_key": "icevel-mercator20260905T000000Z"
+  },
+  "bottomt-mercator": {
+   "tile_key": "bottomt-mercator20260905T000000Z"
+  }
+ }
+}
