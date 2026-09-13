@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "sst-mercator",
+ "title": "Mercator Ocean sea surface temperature",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-09-13T03:00:20Z",
+ "updated": "2026-09-13T03:00:20Z",
+ "hour": "2026-09-13T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-09-13T00:00:00Z"
+ ],
+ "files": {
+  "sst-mercator.json": {
+   "bytes": 380248,
+   "sha256": "7342c5fb36facad578116bebeea4394b7b5fbc0cde4e5672a91c0a4e474086c8"
+  }
+ },
+ "tiles": {
+  "tiles-sst-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}
