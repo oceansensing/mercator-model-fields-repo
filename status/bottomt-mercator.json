@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "bottomt-mercator",
+ "title": "Mercator Ocean bottom temperature",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-09-16T03:00:13Z",
+ "updated": "2026-09-16T03:00:13Z",
+ "hour": "2026-09-16T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-09-16T00:00:00Z"
+ ],
+ "files": {
+  "bottomt-mercator.json": {
+   "bytes": 356933,
+   "sha256": "0a5bc659c8d562df1ebb5492c6cf33860e467170fff6f365039ff7ed25c1675a"
+  }
+ },
+ "tiles": {
+  "tiles-bottomt-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}
