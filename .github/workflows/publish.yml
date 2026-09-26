@@ -1,15 +1,15 @@
 # The Mercator Ocean SCALAR FIELDS publish, and this repository holds none of the
 # code that does it.
 #
-# The **fetcher** lives in `oceansensing.github.io` (`scripts/`) and the
-# **orchestrator** in `realtime-data-repo` (`pipeline/`). Both are checked out
-# here at run time, and `PIPELINE_ROOT` points the orchestrator at *this*
-# workspace so it publishes this repository's tree from its own
+# The **fetcher** (`scripts/`) and, since 2026-09-26, the **orchestrator**
+# (`pipeline/`) both live in the private `oceansensing.github.io`, checked out
+# once here at run time as `site/`, and `PIPELINE_ROOT` points the orchestrator
+# at *this* workspace so it publishes this repository's tree from its own
 # `pipeline/products.toml`.
 #
 # **This file is `sentinel3-data-repo`'s with four changes**, kept close so
 # the two can be diffed: the Copernicus credentials on the fetch step, a
-# different dependency pin, five tile cache pairs, and this header.
+# different dependency pin, nine tile cache pairs, and this header.
 #
 # **What is genuinely different: the credentials, and where they are.** The
 # fetcher talks to Copernicus Marine, which takes a username and password --
