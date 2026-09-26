@@ -44,8 +44,8 @@ docs" means across all ten repositories, is the doctrine block at the top of
 
 The tree goes to GitHub Pages at
 <https://oceansensing.org/mercator-model-fields-repo/>. The same tree also
-goes to Cloudflare R2 (`oceannow-data/mercator-model-fields-repo/`), which
-the Ocean Now app reads; the site's `pipeline/publish_r2.py` has the rules.
+goes to a second host, Cloudflare R2, under this
+repository's name; the site's `pipeline/publish_r2.py` has the rules.
 
 ## What one frame costs, measured 2026-09-01
 
