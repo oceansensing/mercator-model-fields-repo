@@ -252,3 +252,12 @@ Every number above has a run behind it, taken against the live service on
 `scripts/probe-mercator-chunks.py` in the site repository. The transfer rates
 are one sample each on a GitHub runner and will move with the day; the chunk
 shapes are properties of the store and will not.
+
+## The workflow's packages come from the site — 2026-09-27
+
+The publish workflow installs `site/scripts/requirements-mercator.txt`, one file
+per fetcher family, instead of naming packages in its own `pip install`
+line. Dependabot reads requirements files and never a workflow line: an
+inline pin elsewhere had carried `requests` 2.32.3, a version with two
+advisories, unflagged. The site's `check:docs` now refuses an inline package
+here. Confirmed by a dispatched run, green on build, Pages and R2.
