@@ -1,0 +1,198 @@
+{
+ "schema": 2,
+ "contract": 1,
+ "generated": "2026-10-03T16:11:39Z",
+ "mode": "full",
+ "run": {
+  "id": "37135784209",
+  "url": "https://github.com/oceansensing/mercator-model-fields-repo/actions/runs/37135784209"
+ },
+ "schedule": {
+  "crons": [
+   "53 2,8,14,20 * * *"
+  ],
+  "longestGapHours": 6.0
+ },
+ "products": {
+  "sst-mercator": {
+   "title": "Mercator Ocean sea surface temperature",
+   "roots": [
+    "sst-mercator.json"
+   ],
+   "fate": "fresh",
+   "reason": null,
+   "checked": "2026-10-03T16:11:39Z",
+   "updated": "2026-10-03T03:13:44Z",
+   "hour": "2026-10-03T00:00:00Z",
+   "modelRun": null,
+   "source": "Mercator Ocean / Copernicus Marine",
+   "hours": [
+    "2026-10-03T00:00:00Z"
+   ],
+   "stale": false,
+   "staleCause": null,
+   "ageHours": 16.19,
+   "nearestOffsetHours": 16.19
+  },
+  "temp29-mercator": {
+   "title": "Mercator Ocean temperature at 29 m",
+   "roots": [
+    "temp29-mercator.json"
+   ],
+   "fate": "fresh",
+   "reason": null,
+   "checked": "2026-10-03T16:11:39Z",
+   "updated": "2026-10-03T03:13:44Z",
+   "hour": "2026-10-03T00:00:00Z",
+   "modelRun": null,
+   "source": "Mercator Ocean / Copernicus Marine",
+   "hours": [
+    "2026-10-03T00:00:00Z"
+   ],
+   "stale": false,
+   "staleCause": null,
+   "ageHours": 16.19,
+   "nearestOffsetHours": 16.19
+  },
+  "ohc-mercator": {
+   "title": "Mercator Ocean heat content",
+   "roots": [
+    "ohc-mercator.json"
+   ],
+   "fate": "fresh",
+   "reason": null,
+   "checked": "2026-10-03T16:11:39Z",
+   "updated": "2026-10-03T03:13:44Z",
+   "hour": "2026-10-03T00:00:00Z",
+   "modelRun": null,
+   "source": "Mercator Ocean / Copernicus Marine",
+   "hours": [
+    "2026-10-03T00:00:00Z"
+   ],
+   "stale": false,
+   "staleCause": null,
+   "ageHours": 16.19,
+   "nearestOffsetHours": 16.19
+  },
+  "sss-mercator": {
+   "title": "Mercator Ocean salinity",
+   "roots": [
+    "sss-mercator.json"
+   ],
+   "fate": "fresh",
+   "reason": null,
+   "checked": "2026-10-03T16:11:39Z",
+   "updated": "2026-10-03T03:13:44Z",
+   "hour": "2026-10-03T00:00:00Z",
+   "modelRun": null,
+   "source": "Mercator Ocean / Copernicus Marine",
+   "hours": [
+    "2026-10-03T00:00:00Z"
+   ],
+   "stale": false,
+   "staleCause": null,
+   "ageHours": 16.19,
+   "nearestOffsetHours": 16.19
+  },
+  "ssh-mercator": {
+   "title": "Mercator Ocean sea surface height",
+   "roots": [
+    "ssh-mercator.json"
+   ],
+   "fate": "fresh",
+   "reason": null,
+   "checked": "2026-10-03T16:11:39Z",
+   "updated": "2026-10-03T03:13:44Z",
+   "hour": "2026-10-03T00:00:00Z",
+   "modelRun": null,
+   "source": "Mercator Ocean / Copernicus Marine",
+   "hours": [
+    "2026-10-03T00:00:00Z"
+   ],
+   "stale": false,
+   "staleCause": null,
+   "ageHours": 16.19,
+   "nearestOffsetHours": 16.19
+  },
+  "sic-mercator": {
+   "title": "Mercator Ocean sea ice concentration",
+   "roots": [
+    "sic-mercator.json"
+   ],
+   "fate": "fresh",
+   "reason": null,
+   "checked": "2026-10-03T16:11:39Z",
+   "updated": "2026-10-03T03:13:44Z",
+   "hour": "2026-10-03T00:00:00Z",
+   "modelRun": null,
+   "source": "Mercator Ocean / Copernicus Marine",
+   "hours": [
+    "2026-10-03T00:00:00Z"
+   ],
+   "stale": false,
+   "staleCause": null,
+   "ageHours": 16.19,
+   "nearestOffsetHours": 16.19
+  },
+  "sit-mercator": {
+   "title": "Mercator Ocean sea ice thickness",
+   "roots": [
+    "sit-mercator.json"
+   ],
+   "fate": "fresh",
+   "reason": null,
+   "checked": "2026-10-03T16:11:39Z",
+   "updated": "2026-10-03T03:13:44Z",
+   "hour": "2026-10-03T00:00:00Z",
+   "modelRun": null,
+   "source": "Mercator Ocean / Copernicus Marine",
+   "hours": [
+    "2026-10-03T00:00:00Z"
+   ],
+   "stale": false,
+   "staleCause": null,
+   "ageHours": 16.19,
+   "nearestOffsetHours": 16.19
+  },
+  "icevel-mercator": {
+   "title": "Mercator Ocean sea ice velocity",
+   "roots": [
+    "icevel-mercator.json"
+   ],
+   "fate": "fresh",
+   "reason": null,
+   "checked": "2026-10-03T16:11:39Z",
+   "updated": "2026-10-03T03:13:44Z",
+   "hour": "2026-10-03T00:00:00Z",
+   "modelRun": null,
+   "source": "Mercator Ocean / Copernicus Marine",
+   "hours": [
+    "2026-10-03T00:00:00Z"
+   ],
+   "stale": false,
+   "staleCause": null,
+   "ageHours": 16.19,
+   "nearestOffsetHours": 16.19
+  },
+  "bottomt-mercator": {
+   "title": "Mercator Ocean bottom temperature",
+   "roots": [
+    "bottomt-mercator.json"
+   ],
+   "fate": "fresh",
+   "reason": null,
+   "checked": "2026-10-03T16:11:39Z",
+   "updated": "2026-10-03T03:13:44Z",
+   "hour": "2026-10-03T00:00:00Z",
+   "modelRun": null,
+   "source": "Mercator Ocean / Copernicus Marine",
+   "hours": [
+    "2026-10-03T00:00:00Z"
+   ],
+   "stale": false,
+   "staleCause": null,
+   "ageHours": 16.19,
+   "nearestOffsetHours": 16.19
+  }
+ }
+}
