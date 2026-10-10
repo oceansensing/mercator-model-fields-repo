@@ -84,7 +84,9 @@ jobs:
     # A backstop copied from the currents' reasoning: five scalars and a
     # 29-level profile take about a minute with no dask, and the dask guard
     # fails the slow path in seconds.
-    timeout-minutes: 45
+    # Raised 2026-10-10 for the daily-mean levels' step, which runs on
+    # the same lane after the six-hourly one on the day the levels turn over.
+    timeout-minutes: 90
     permissions:
       contents: read
     outputs:
@@ -302,6 +304,42 @@ jobs:
           path: ${{ steps.plan.outputs.cache-paths-mercator-bottomdepth-tiles }}
           key: ${{ steps.plan.outputs.cache-key-mercator-bottomdepth-tiles }}
 
+      - name: Restore mld tiles
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-mld-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-mld-tiles }}
+
+      - name: Restore pbo tiles
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-pbo-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-pbo-tiles }}
+
+      - name: Restore ssta tiles
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-ssta-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-ssta-tiles }}
+
+      - name: Restore temp tiles
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-temp-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-temp-tiles }}
+
+      - name: Restore sal tiles
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-sal-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-sal-tiles }}
+
+      - name: Restore w tiles
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-w-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-w-tiles }}
+
       - name: Fetch, validate, assemble
         id: run
         env:
@@ -396,6 +434,48 @@ jobs:
           path: ${{ steps.plan.outputs.cache-paths-mercator-bottomdepth-tiles }}
           key: ${{ steps.plan.outputs.cache-key-mercator-bottomdepth-tiles }}
 
+      - name: Save mld tiles
+        if: steps.run.outputs.built-mercator-mld-tiles == 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-mld-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-mld-tiles }}
+
+      - name: Save pbo tiles
+        if: steps.run.outputs.built-mercator-pbo-tiles == 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-pbo-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-pbo-tiles }}
+
+      - name: Save ssta tiles
+        if: steps.run.outputs.built-mercator-ssta-tiles == 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-ssta-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-ssta-tiles }}
+
+      - name: Save temp tiles
+        if: steps.run.outputs.built-mercator-temp-tiles == 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-temp-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-temp-tiles }}
+
+      - name: Save sal tiles
+        if: steps.run.outputs.built-mercator-sal-tiles == 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-sal-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-sal-tiles }}
+
+      - name: Save w tiles
+        if: steps.run.outputs.built-mercator-w-tiles == 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-w-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-w-tiles }}
+
       - name: Upload the site
         if: steps.run.outputs.deploy == 'true'
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
@@ -474,7 +554,7 @@ jobs:
     needs: build
     if: needs.build.outputs.deploy == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     permissions:
       contents: read
     steps:

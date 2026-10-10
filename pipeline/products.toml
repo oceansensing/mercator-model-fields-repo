@@ -41,8 +41,17 @@ timeout_minutes = 30
 # nothing here -- and naming the lane after the service keeps that true when a
 # second Copernicus product lands beside it.
 [steps.mercator]
-cmd = ["python3", "scripts/fetch-mercator.py", "--only=sst-mercator,sss-mercator,ssh-mercator,temp29-mercator,ohc-mercator,sic-mercator,sit-mercator,icevel-mercator,bottomt-mercator,bottoms-mercator,bottomdepth-mercator"]
+cmd = ["python3", "scripts/fetch-mercator.py", "--only=sst-mercator,sss-mercator,ssh-mercator,temp29-mercator,ohc-mercator,sic-mercator,sit-mercator,icevel-mercator,bottomt-mercator,bottoms-mercator,bottomdepth-mercator,mld-mercator,pbo-mercator,ssta-mercator"]
 lane = "copernicus"
+
+# **The daily-mean levels, a step of their own on the same lane** (2026-10-10):
+# temperature, salinity and vertical velocity at 36 levels, 108 level reads and
+# 108 roots with their tiles, measured 2026-10-10 on a 16-core Mac at about
+# 103 s a quantity; the backstop is several times a 4-core runner's expected.
+[steps.mercator-levels]
+cmd = ["python3", "scripts/fetch-mercator.py", "--only=temp-mercator,sal-mercator,w-mercator"]
+lane = "copernicus"
+timeout_minutes = 60
 
 # **Hours, and they are the upstream's rather than ours.** `max_age_hours`
 # measures the reader's distance from the newest published valid time.
@@ -296,4 +305,137 @@ cache = "mercator-bottomdepth-tiles"
 match = [
   ["tiles-bottomdepth-mercator", "bottomdepth-mercator.json"],
   ["tiles-bottomdepth-mercator-f*h", "bottomdepth-mercator-f*h.json"],
+]
+
+# **Three more of the daily 2-D dataset's fields and the model's own SST anomaly,
+# R2's alone** (2026-10-10): each one map-chunked read a day, in the step above.
+[products.mld-mercator]
+title = "Mercator Ocean mixed layer depth"
+step = "mercator"
+roots = ["mld-mercator.json"]
+writes = ["mld-mercator*.json"]
+max_age_hours = 30
+r2_only = true
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=mld-mercator"]
+
+[products.mld-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=mld-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=mld-mercator"]
+cache = "mercator-mld-tiles"
+match = [
+  ["tiles-mld-mercator", "mld-mercator.json"],
+]
+
+[products.pbo-mercator]
+title = "Mercator Ocean sea water pressure at the sea floor"
+step = "mercator"
+roots = ["pbo-mercator.json"]
+writes = ["pbo-mercator*.json"]
+max_age_hours = 30
+r2_only = true
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=pbo-mercator"]
+
+[products.pbo-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=pbo-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=pbo-mercator"]
+cache = "mercator-pbo-tiles"
+match = [
+  ["tiles-pbo-mercator", "pbo-mercator.json"],
+]
+
+[products.ssta-mercator]
+title = "Mercator Ocean sea surface temperature anomaly"
+step = "mercator"
+roots = ["ssta-mercator.json"]
+writes = ["ssta-mercator*.json"]
+max_age_hours = 30
+r2_only = true
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=ssta-mercator"]
+
+[products.ssta-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=ssta-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=ssta-mercator"]
+cache = "mercator-ssta-tiles"
+match = [
+  ["tiles-ssta-mercator", "ssta-mercator.json"],
+]
+
+# **Every level the depth means read, as daily means, R2's alone** (2026-10-10;
+# the site's `scripts/fetch-mercator.py`, LEVELS_KEPT): the 36 levels from 0.494
+# to 1062.440 m, one root a level named for its depth to the meter, read once a
+# day from the variable's daily-mean dataset in a step of its own, so the
+# six-hourly products above never wait on it.
+[products.temp-mercator]
+title = "Mercator Ocean temperature at each level to 1062 m, daily means"
+step = "mercator-levels"
+roots = ["temp-mercator-0m.json", "temp-mercator-2m.json", "temp-mercator-3m.json", "temp-mercator-4m.json",
+         "temp-mercator-5m.json", "temp-mercator-6m.json", "temp-mercator-8m.json", "temp-mercator-10m.json",
+         "temp-mercator-11m.json", "temp-mercator-13m.json", "temp-mercator-16m.json", "temp-mercator-18m.json",
+         "temp-mercator-22m.json", "temp-mercator-25m.json", "temp-mercator-29m.json", "temp-mercator-34m.json",
+         "temp-mercator-40m.json", "temp-mercator-47m.json", "temp-mercator-56m.json", "temp-mercator-66m.json",
+         "temp-mercator-78m.json", "temp-mercator-92m.json", "temp-mercator-110m.json", "temp-mercator-131m.json",
+         "temp-mercator-156m.json", "temp-mercator-186m.json", "temp-mercator-222m.json", "temp-mercator-266m.json",
+         "temp-mercator-318m.json", "temp-mercator-380m.json", "temp-mercator-454m.json", "temp-mercator-541m.json",
+         "temp-mercator-644m.json", "temp-mercator-763m.json", "temp-mercator-902m.json", "temp-mercator-1062m.json"]
+writes = ["temp-mercator-*m.json"]
+max_age_hours = 30
+r2_only = true
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=temp-mercator"]
+
+[products.temp-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=temp-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=temp-mercator"]
+cache = "mercator-temp-tiles"
+match = [
+  ["tiles-temp-mercator-*m", "temp-mercator-*m.json"],
+]
+
+[products.sal-mercator]
+title = "Mercator Ocean salinity at each level to 1062 m, daily means"
+step = "mercator-levels"
+roots = ["sal-mercator-0m.json", "sal-mercator-2m.json", "sal-mercator-3m.json", "sal-mercator-4m.json",
+         "sal-mercator-5m.json", "sal-mercator-6m.json", "sal-mercator-8m.json", "sal-mercator-10m.json",
+         "sal-mercator-11m.json", "sal-mercator-13m.json", "sal-mercator-16m.json", "sal-mercator-18m.json",
+         "sal-mercator-22m.json", "sal-mercator-25m.json", "sal-mercator-29m.json", "sal-mercator-34m.json",
+         "sal-mercator-40m.json", "sal-mercator-47m.json", "sal-mercator-56m.json", "sal-mercator-66m.json",
+         "sal-mercator-78m.json", "sal-mercator-92m.json", "sal-mercator-110m.json", "sal-mercator-131m.json",
+         "sal-mercator-156m.json", "sal-mercator-186m.json", "sal-mercator-222m.json", "sal-mercator-266m.json",
+         "sal-mercator-318m.json", "sal-mercator-380m.json", "sal-mercator-454m.json", "sal-mercator-541m.json",
+         "sal-mercator-644m.json", "sal-mercator-763m.json", "sal-mercator-902m.json", "sal-mercator-1062m.json"]
+writes = ["sal-mercator-*m.json"]
+max_age_hours = 30
+r2_only = true
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=sal-mercator"]
+
+[products.sal-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=sal-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=sal-mercator"]
+cache = "mercator-sal-tiles"
+match = [
+  ["tiles-sal-mercator-*m", "sal-mercator-*m.json"],
+]
+
+[products.w-mercator]
+title = "Mercator Ocean vertical velocity at each level to 1062 m, daily means"
+step = "mercator-levels"
+roots = ["w-mercator-0m.json", "w-mercator-2m.json", "w-mercator-3m.json", "w-mercator-4m.json",
+         "w-mercator-5m.json", "w-mercator-6m.json", "w-mercator-8m.json", "w-mercator-10m.json",
+         "w-mercator-11m.json", "w-mercator-13m.json", "w-mercator-16m.json", "w-mercator-18m.json",
+         "w-mercator-22m.json", "w-mercator-25m.json", "w-mercator-29m.json", "w-mercator-34m.json",
+         "w-mercator-40m.json", "w-mercator-47m.json", "w-mercator-56m.json", "w-mercator-66m.json",
+         "w-mercator-78m.json", "w-mercator-92m.json", "w-mercator-110m.json", "w-mercator-131m.json",
+         "w-mercator-156m.json", "w-mercator-186m.json", "w-mercator-222m.json", "w-mercator-266m.json",
+         "w-mercator-318m.json", "w-mercator-380m.json", "w-mercator-454m.json", "w-mercator-541m.json",
+         "w-mercator-644m.json", "w-mercator-763m.json", "w-mercator-902m.json", "w-mercator-1062m.json"]
+writes = ["w-mercator-*m.json"]
+max_age_hours = 30
+r2_only = true
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=w-mercator"]
+
+[products.w-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=w-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=w-mercator"]
+cache = "mercator-w-tiles"
+match = [
+  ["tiles-w-mercator-*m", "w-mercator-*m.json"],
 ]
