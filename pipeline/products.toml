@@ -41,7 +41,7 @@ timeout_minutes = 30
 # nothing here -- and naming the lane after the service keeps that true when a
 # second Copernicus product lands beside it.
 [steps.mercator]
-cmd = ["python3", "scripts/fetch-mercator.py", "--only=sst-mercator,sss-mercator,ssh-mercator,temp29-mercator,ohc-mercator,sic-mercator,sit-mercator,icevel-mercator,bottomt-mercator"]
+cmd = ["python3", "scripts/fetch-mercator.py", "--only=sst-mercator,sss-mercator,ssh-mercator,temp29-mercator,ohc-mercator,sic-mercator,sit-mercator,icevel-mercator,bottomt-mercator,bottoms-mercator,bottomdepth-mercator"]
 lane = "copernicus"
 
 # **Hours, and they are the upstream's rather than ours.** `max_age_hours`
@@ -256,4 +256,44 @@ key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=bottomt-mer
 cache = "mercator-bottomt-tiles"
 match = [
   ["tiles-bottomt-mercator", "bottomt-mercator.json"],
+]
+
+# **R2's alone** (2026-10-09, the site pipeline's D13 note): `r2_only` leaves it out of
+# the Pages site and Pages' status; the R2 job publishes it beside the rest.
+[products.bottoms-mercator]
+title = "Mercator Ocean bottom salinity"
+step = "mercator"
+roots = ["bottoms-mercator.json"]
+writes = ["bottoms-mercator*.json"]
+max_age_hours = 30
+r2_only = true
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=bottoms-mercator"]
+
+[products.bottoms-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=bottoms-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=bottoms-mercator"]
+cache = "mercator-bottoms-tiles"
+match = [
+  ["tiles-bottoms-mercator", "bottoms-mercator.json"],
+  ["tiles-bottoms-mercator-f*h", "bottoms-mercator-f*h.json"],
+]
+
+# **R2's alone** (2026-10-09, the site pipeline's D13 note): `r2_only` leaves it out of
+# the Pages site and Pages' status; the R2 job publishes it beside the rest.
+[products.bottomdepth-mercator]
+title = "Mercator Ocean depth of the bottom values"
+step = "mercator"
+roots = ["bottomdepth-mercator.json"]
+writes = ["bottomdepth-mercator*.json"]
+max_age_hours = 30
+r2_only = true
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=bottomdepth-mercator"]
+
+[products.bottomdepth-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=bottomdepth-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=bottomdepth-mercator"]
+cache = "mercator-bottomdepth-tiles"
+match = [
+  ["tiles-bottomdepth-mercator", "bottomdepth-mercator.json"],
+  ["tiles-bottomdepth-mercator-f*h", "bottomdepth-mercator-f*h.json"],
 ]

@@ -290,6 +290,18 @@ jobs:
           path: ${{ steps.plan.outputs.cache-paths-mercator-bottomt-tiles }}
           key: ${{ steps.plan.outputs.cache-key-mercator-bottomt-tiles }}
 
+      - name: Restore bottoms tiles
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-bottoms-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-bottoms-tiles }}
+
+      - name: Restore bottomdepth tiles
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-bottomdepth-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-bottomdepth-tiles }}
+
       - name: Fetch, validate, assemble
         id: run
         env:
@@ -369,6 +381,20 @@ jobs:
         with:
           path: ${{ steps.plan.outputs.cache-paths-mercator-bottomt-tiles }}
           key: ${{ steps.plan.outputs.cache-key-mercator-bottomt-tiles }}
+
+      - name: Save bottoms tiles
+        if: steps.run.outputs.built-mercator-bottoms-tiles == 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-bottoms-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-bottoms-tiles }}
+
+      - name: Save bottomdepth tiles
+        if: steps.run.outputs.built-mercator-bottomdepth-tiles == 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-bottomdepth-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-bottomdepth-tiles }}
 
       - name: Upload the site
         if: steps.run.outputs.deploy == 'true'
