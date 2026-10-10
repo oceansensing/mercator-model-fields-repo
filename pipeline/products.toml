@@ -45,9 +45,10 @@ cmd = ["python3", "scripts/fetch-mercator.py", "--only=sst-mercator,sss-mercator
 lane = "copernicus"
 
 # **The daily-mean levels, a step of their own on the same lane** (2026-10-10):
-# temperature, salinity and vertical velocity at 36 levels, 108 level reads and
-# 108 roots with their tiles, measured 2026-10-10 on a 16-core Mac at about
-# 103 s a quantity; the backstop is several times a 4-core runner's expected.
+# temperature, salinity and vertical velocity at 49 levels, 147 level reads and
+# 147 roots with their tiles, measured 2026-10-10 on a 16-core Mac at about
+# 103 s a quantity for the first 36 and 42 s for the 13 below; the backstop is
+# several times a 4-core runner's expected.
 [steps.mercator-levels]
 cmd = ["python3", "scripts/fetch-mercator.py", "--only=temp-mercator,sal-mercator,w-mercator"]
 lane = "copernicus"
@@ -360,13 +361,14 @@ match = [
   ["tiles-ssta-mercator", "ssta-mercator.json"],
 ]
 
-# **Every level the depth means read, as daily means, R2's alone** (2026-10-10;
-# the site's `scripts/fetch-mercator.py`, LEVELS_KEPT): the 36 levels from 0.494
-# to 1062.440 m, one root a level named for its depth to the meter, read once a
-# day from the variable's daily-mean dataset in a step of its own, so the
-# six-hourly products above never wait on it.
+# **Every level with water, as daily means, R2's alone** (2026-10-10; the
+# site's `scripts/fetch-mercator.py`, LEVELS_KEPT): the 49 levels from 0.494 to
+# 5274.784 m -- the model's 50th, 5727.917 m, holds no water in its daily means --
+# one root a level named for its depth to the meter, read once a day from the
+# variable's daily-mean dataset in a step of its own, so the six-hourly products
+# above never wait on it. The first 36 are the levels the depth means read.
 [products.temp-mercator]
-title = "Mercator Ocean temperature at each level to 1062 m, daily means"
+title = "Mercator Ocean temperature at each level, daily means"
 step = "mercator-levels"
 roots = ["temp-mercator-0m.json", "temp-mercator-2m.json", "temp-mercator-3m.json", "temp-mercator-4m.json",
          "temp-mercator-5m.json", "temp-mercator-6m.json", "temp-mercator-8m.json", "temp-mercator-10m.json",
@@ -376,7 +378,11 @@ roots = ["temp-mercator-0m.json", "temp-mercator-2m.json", "temp-mercator-3m.jso
          "temp-mercator-78m.json", "temp-mercator-92m.json", "temp-mercator-110m.json", "temp-mercator-131m.json",
          "temp-mercator-156m.json", "temp-mercator-186m.json", "temp-mercator-222m.json", "temp-mercator-266m.json",
          "temp-mercator-318m.json", "temp-mercator-380m.json", "temp-mercator-454m.json", "temp-mercator-541m.json",
-         "temp-mercator-644m.json", "temp-mercator-763m.json", "temp-mercator-902m.json", "temp-mercator-1062m.json"]
+         "temp-mercator-644m.json", "temp-mercator-763m.json", "temp-mercator-902m.json", "temp-mercator-1062m.json",
+         "temp-mercator-1245m.json", "temp-mercator-1452m.json", "temp-mercator-1684m.json", "temp-mercator-1942m.json",
+         "temp-mercator-2225m.json", "temp-mercator-2533m.json", "temp-mercator-2866m.json", "temp-mercator-3221m.json",
+         "temp-mercator-3597m.json", "temp-mercator-3992m.json", "temp-mercator-4405m.json", "temp-mercator-4833m.json",
+         "temp-mercator-5275m.json"]
 writes = ["temp-mercator-*m.json"]
 max_age_hours = 30
 r2_only = true
@@ -391,7 +397,7 @@ match = [
 ]
 
 [products.sal-mercator]
-title = "Mercator Ocean salinity at each level to 1062 m, daily means"
+title = "Mercator Ocean salinity at each level, daily means"
 step = "mercator-levels"
 roots = ["sal-mercator-0m.json", "sal-mercator-2m.json", "sal-mercator-3m.json", "sal-mercator-4m.json",
          "sal-mercator-5m.json", "sal-mercator-6m.json", "sal-mercator-8m.json", "sal-mercator-10m.json",
@@ -401,7 +407,11 @@ roots = ["sal-mercator-0m.json", "sal-mercator-2m.json", "sal-mercator-3m.json",
          "sal-mercator-78m.json", "sal-mercator-92m.json", "sal-mercator-110m.json", "sal-mercator-131m.json",
          "sal-mercator-156m.json", "sal-mercator-186m.json", "sal-mercator-222m.json", "sal-mercator-266m.json",
          "sal-mercator-318m.json", "sal-mercator-380m.json", "sal-mercator-454m.json", "sal-mercator-541m.json",
-         "sal-mercator-644m.json", "sal-mercator-763m.json", "sal-mercator-902m.json", "sal-mercator-1062m.json"]
+         "sal-mercator-644m.json", "sal-mercator-763m.json", "sal-mercator-902m.json", "sal-mercator-1062m.json",
+         "sal-mercator-1245m.json", "sal-mercator-1452m.json", "sal-mercator-1684m.json", "sal-mercator-1942m.json",
+         "sal-mercator-2225m.json", "sal-mercator-2533m.json", "sal-mercator-2866m.json", "sal-mercator-3221m.json",
+         "sal-mercator-3597m.json", "sal-mercator-3992m.json", "sal-mercator-4405m.json", "sal-mercator-4833m.json",
+         "sal-mercator-5275m.json"]
 writes = ["sal-mercator-*m.json"]
 max_age_hours = 30
 r2_only = true
@@ -416,7 +426,7 @@ match = [
 ]
 
 [products.w-mercator]
-title = "Mercator Ocean vertical velocity at each level to 1062 m, daily means"
+title = "Mercator Ocean vertical velocity at each level, daily means"
 step = "mercator-levels"
 roots = ["w-mercator-0m.json", "w-mercator-2m.json", "w-mercator-3m.json", "w-mercator-4m.json",
          "w-mercator-5m.json", "w-mercator-6m.json", "w-mercator-8m.json", "w-mercator-10m.json",
@@ -426,7 +436,11 @@ roots = ["w-mercator-0m.json", "w-mercator-2m.json", "w-mercator-3m.json", "w-me
          "w-mercator-78m.json", "w-mercator-92m.json", "w-mercator-110m.json", "w-mercator-131m.json",
          "w-mercator-156m.json", "w-mercator-186m.json", "w-mercator-222m.json", "w-mercator-266m.json",
          "w-mercator-318m.json", "w-mercator-380m.json", "w-mercator-454m.json", "w-mercator-541m.json",
-         "w-mercator-644m.json", "w-mercator-763m.json", "w-mercator-902m.json", "w-mercator-1062m.json"]
+         "w-mercator-644m.json", "w-mercator-763m.json", "w-mercator-902m.json", "w-mercator-1062m.json",
+         "w-mercator-1245m.json", "w-mercator-1452m.json", "w-mercator-1684m.json", "w-mercator-1942m.json",
+         "w-mercator-2225m.json", "w-mercator-2533m.json", "w-mercator-2866m.json", "w-mercator-3221m.json",
+         "w-mercator-3597m.json", "w-mercator-3992m.json", "w-mercator-4405m.json", "w-mercator-4833m.json",
+         "w-mercator-5275m.json"]
 writes = ["w-mercator-*m.json"]
 max_age_hours = 30
 r2_only = true

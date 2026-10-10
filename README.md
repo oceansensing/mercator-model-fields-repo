@@ -58,9 +58,9 @@ job publishes them beside the rest (the site pipeline's D13, its note of
 | --- | --- | --- |
 | `bottoms-mercator.json` | the model's bottom salinity (`sob`, beside `bottomt-mercator`'s `tob`) | global, 1 degree, and 1/12 degree tiles |
 | `bottomdepth-mercator.json` | the depth at which the bottom values stand, m — the static dataset's cell thicknesses summed to the bottom cell's middle | global, 1 degree, and 1/12 degree tiles |
-| `temp-mercator-<depth>m.json` (since 2026-10-10's afternoon) | the potential temperature at each of the 36 levels from 0.494 to 1062.440 m — every level the 0–200, 0–350 and 0–1000 m means read — one root a level named for its depth to the meter (`-0m` … `-1062m`), daily means, in a step of its own (`mercator-levels`) | global, 1 degree, and 1/12 degree tiles |
-| `sal-mercator-<depth>m.json` | the practical salinity at the same 36 levels, daily means | the same |
-| `w-mercator-<depth>m.json` | the vertical velocity at the same 36 levels, daily means, in meters a day to the centimeter (the model's m/s × 86,400) | the same |
+| `temp-mercator-<depth>m.json` (since 2026-10-10's afternoon) | the potential temperature at each of the 49 levels from 0.494 to 5274.784 m — every level of the model with water in its daily means (the 50th, 5727.917 m, holds none); the first 36 are those the 0–200, 0–350 and 0–1000 m means read — one root a level named for its depth to the meter (`-0m` … `-5275m`), daily means, in a step of its own (`mercator-levels`) | global, 1 degree, and 1/12 degree tiles |
+| `sal-mercator-<depth>m.json` | the practical salinity at the same 49 levels, daily means | the same |
+| `w-mercator-<depth>m.json` | the vertical velocity at the same 49 levels, daily means, in meters a day to the centimeter (the model's m/s × 86,400) | the same |
 | `mld-mercator.json` | the mixed layer's depth, m (`mlotst`: where the potential density first exceeds the surface's by 0.03 kg/m³) | global, 1 degree, and 1/12 degree tiles |
 | `pbo-mercator.json` | the sea water's pressure at the sea floor, dbar (`pbo`) | the same |
 | `ssta-mercator.json` | the model's own SST anomaly, °C (its dataset states no baseline) | the same |
