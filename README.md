@@ -64,6 +64,20 @@ job publishes them beside the rest (the site pipeline's D13, its note of
 | `mld-mercator.json` | the mixed layer's depth, m (`mlotst`: where the potential density first exceeds the surface's by 0.03 kg/m³) | global, 1 degree, and 1/12 degree tiles |
 | `pbo-mercator.json` | the sea water's pressure at the sea floor, dbar (`pbo`) | the same |
 | `ssta-mercator.json` | the model's own SST anomaly, °C (its dataset states no baseline) | the same |
+| `temp-mercator-<depth>m-prev.json`, `sal-mercator-<depth>m-prev.json` (since 2026-10-10's night) | the day before's temperature and salinity at the same 49 levels: one step back on the same daily axis, held to be exactly a day earlier, in a step of its own (`mercator-prev`) | global, 1 degree, and 1/12 degree tiles |
+| `ssh-mercator-prev.json` | the day before's sea surface height | the same |
+| `qnet-mercator.json` | the surface's net heat flux into the ocean, W/m², the day 00–24 UTC: ECMWF IFS's downward shortwave and longwave less the sea's own longwave (σ SST⁴), and the latent and sensible heat by Large & Yeager's (2004, 2009) bulk formulae from ECMWF's 10 m wind, 2 m temperature and dewpoint and surface pressure against this model's SST; ice-covered water left out | global, 0.25 degree (ECMWF's grid) |
+| `emp-mercator.json` | evaporation less precipitation, mm/day, the same day: the bulk formulae's evaporation less ECMWF's total precipitation | the same |
+
+The fluxes use ECMWF's open data (the IFS forecast's
+[open data](https://www.ecmwf.int/en/forecasts/datasets/open-data),
+CC BY 4.0), which carries the radiation and the precipitation but not the
+turbulent fluxes or evaporation; they are formed here, in the site's
+`scripts/fetch-mercator-fluxes.py` and `scripts/bulk.py`, the way an ocean
+model forced by an atmospheric model forms its own. Each day is held to the
+ice-free ocean's means: net heat within 60 W/m² of zero and evaporation less
+precipitation within 2 mm/day (measured 2026-10-10's 10-11: 7.2 W/m² and
+0.46 mm/day).
 
 ## What one frame costs, measured 2026-09-01
 
