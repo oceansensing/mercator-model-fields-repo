@@ -52,17 +52,10 @@ lane = "copernicus"
 [steps.mercator-levels]
 cmd = ["python3", "scripts/fetch-mercator.py", "--only=temp-mercator,sal-mercator,w-mercator"]
 lane = "copernicus"
-timeout_minutes = 60
-
-# **The day before's temperature and salinity at every level and its sea
-# surface height** (2026-10-10): each of today's products read one step back
-# on the same daily axis, that step held to be exactly a day earlier, so a
-# change over the day can be formed from two days' means. Its own step on the
-# same lane; the levels' cost, twice.
-[steps.mercator-prev]
-cmd = ["python3", "scripts/fetch-mercator.py", "--only=temp-mercator-prev,sal-mercator-prev,ssh-mercator-prev"]
-lane = "copernicus"
-timeout_minutes = 60
+# Five level sets since 2026-10-10's night: temperature and salinity today and
+# the day ahead, and the vertical velocity; the dispatch that built three ran
+# 30-34 minutes in all, so the backstop is raised from 60.
+timeout_minutes = 80
 
 # **The surface's net heat flux and evaporation less rain** (2026-10-10):
 # Large & Yeager's (2004, 2009) bulk formulae on ECMWF's open IFS fields (its
@@ -191,9 +184,9 @@ match = [
 title = "Mercator Ocean sea surface height"
 step = "mercator"
 roots = ["ssh-mercator.json"]
-# Its own file and its leads, by name: `ssh-mercator*.json` would claim the
-# day before's `ssh-mercator-prev.json` too, which is R2's alone.
-writes = ["ssh-mercator.json", "ssh-mercator-f*h.json"]
+# Its own file, its leads and its days, by name: a looser `ssh-mercator*.json`
+# claims any file another product beginning so writes.
+writes = ["ssh-mercator.json", "ssh-mercator-f*h.json", "ssh-mercator.v*.json"]
 max_age_hours = 30
 namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=ssh-mercator"]
 
@@ -216,6 +209,7 @@ key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=ssh-mercato
 cache = "mercator-ssh-tiles"
 match = [
   ["tiles-ssh-mercator", "ssh-mercator.json"],
+  ["tiles-ssh-mercator.v*", "ssh-mercator.v*.json"],
 ]
 
 # **Four more off the daily 2-D product, 2026-09-02, at the owner's ask** --
@@ -393,6 +387,11 @@ match = [
 # one root a level named for its depth to the meter, read once a day from the
 # variable's daily-mean dataset in a step of its own, so the six-hourly products
 # above never wait on it. The first 36 are the levels the depth means read.
+#
+# **Temperature, salinity and sea level publish today and the day ahead**
+# (2026-10-10): each root is today's daily mean and lists the days it publishes
+# in its header (`frames`); the day ahead is `<root>.v<its time>.json`, its tiles
+# `tiles-<root>.v<its time>/`. A frame no longer published leaves on the next run.
 [products.temp-mercator]
 title = "Mercator Ocean temperature at each level, daily means"
 step = "mercator-levels"
@@ -409,7 +408,7 @@ roots = ["temp-mercator-0m.json", "temp-mercator-2m.json", "temp-mercator-3m.jso
          "temp-mercator-2225m.json", "temp-mercator-2533m.json", "temp-mercator-2866m.json", "temp-mercator-3221m.json",
          "temp-mercator-3597m.json", "temp-mercator-3992m.json", "temp-mercator-4405m.json", "temp-mercator-4833m.json",
          "temp-mercator-5275m.json"]
-writes = ["temp-mercator-*m.json"]
+writes = ["temp-mercator-*m.json", "temp-mercator-*m.v*.json"]
 max_age_hours = 30
 r2_only = true
 namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=temp-mercator"]
@@ -419,7 +418,7 @@ build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=temp-mercato
 key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=temp-mercator"]
 cache = "mercator-temp-tiles"
 match = [
-  ["tiles-temp-mercator-*m", "temp-mercator-*m.json"],
+  ["tiles-temp-mercator-*", "temp-mercator-*.json"],
 ]
 
 [products.sal-mercator]
@@ -438,7 +437,7 @@ roots = ["sal-mercator-0m.json", "sal-mercator-2m.json", "sal-mercator-3m.json",
          "sal-mercator-2225m.json", "sal-mercator-2533m.json", "sal-mercator-2866m.json", "sal-mercator-3221m.json",
          "sal-mercator-3597m.json", "sal-mercator-3992m.json", "sal-mercator-4405m.json", "sal-mercator-4833m.json",
          "sal-mercator-5275m.json"]
-writes = ["sal-mercator-*m.json"]
+writes = ["sal-mercator-*m.json", "sal-mercator-*m.v*.json"]
 max_age_hours = 30
 r2_only = true
 namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=sal-mercator"]
@@ -448,7 +447,7 @@ build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=sal-mercator
 key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=sal-mercator"]
 cache = "mercator-sal-tiles"
 match = [
-  ["tiles-sal-mercator-*m", "sal-mercator-*m.json"],
+  ["tiles-sal-mercator-*", "sal-mercator-*.json"],
 ]
 
 [products.w-mercator]
@@ -478,84 +477,6 @@ key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=w-mercator"
 cache = "mercator-w-tiles"
 match = [
   ["tiles-w-mercator-*m", "w-mercator-*m.json"],
-]
-
-# **The day before, R2's alone** (2026-10-10): the step `mercator-prev` above.
-# Each root is today's with `-prev`, its tiles beside it; a day's mean, so a
-# day older than today's.
-[products.temp-mercator-prev]
-title = "Mercator Ocean temperature at each level, daily means, the day before"
-step = "mercator-prev"
-roots = ["temp-mercator-0m-prev.json", "temp-mercator-2m-prev.json", "temp-mercator-3m-prev.json", "temp-mercator-4m-prev.json",
-         "temp-mercator-5m-prev.json", "temp-mercator-6m-prev.json", "temp-mercator-8m-prev.json", "temp-mercator-10m-prev.json",
-         "temp-mercator-11m-prev.json", "temp-mercator-13m-prev.json", "temp-mercator-16m-prev.json", "temp-mercator-18m-prev.json",
-         "temp-mercator-22m-prev.json", "temp-mercator-25m-prev.json", "temp-mercator-29m-prev.json", "temp-mercator-34m-prev.json",
-         "temp-mercator-40m-prev.json", "temp-mercator-47m-prev.json", "temp-mercator-56m-prev.json", "temp-mercator-66m-prev.json",
-         "temp-mercator-78m-prev.json", "temp-mercator-92m-prev.json", "temp-mercator-110m-prev.json", "temp-mercator-131m-prev.json",
-         "temp-mercator-156m-prev.json", "temp-mercator-186m-prev.json", "temp-mercator-222m-prev.json", "temp-mercator-266m-prev.json",
-         "temp-mercator-318m-prev.json", "temp-mercator-380m-prev.json", "temp-mercator-454m-prev.json", "temp-mercator-541m-prev.json",
-         "temp-mercator-644m-prev.json", "temp-mercator-763m-prev.json", "temp-mercator-902m-prev.json", "temp-mercator-1062m-prev.json",
-         "temp-mercator-1245m-prev.json", "temp-mercator-1452m-prev.json", "temp-mercator-1684m-prev.json", "temp-mercator-1942m-prev.json",
-         "temp-mercator-2225m-prev.json", "temp-mercator-2533m-prev.json", "temp-mercator-2866m-prev.json", "temp-mercator-3221m-prev.json",
-         "temp-mercator-3597m-prev.json", "temp-mercator-3992m-prev.json", "temp-mercator-4405m-prev.json", "temp-mercator-4833m-prev.json",
-         "temp-mercator-5275m-prev.json"]
-writes = ["temp-mercator-*m-prev.json"]
-max_age_hours = 54
-r2_only = true
-namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=temp-mercator-prev"]
-
-[products.temp-mercator-prev.tiles]
-build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=temp-mercator-prev"]
-key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=temp-mercator-prev"]
-cache = "mercator-temp-prev-tiles"
-match = [
-  ["tiles-temp-mercator-*m-prev", "temp-mercator-*m-prev.json"],
-]
-
-[products.sal-mercator-prev]
-title = "Mercator Ocean salinity at each level, daily means, the day before"
-step = "mercator-prev"
-roots = ["sal-mercator-0m-prev.json", "sal-mercator-2m-prev.json", "sal-mercator-3m-prev.json", "sal-mercator-4m-prev.json",
-         "sal-mercator-5m-prev.json", "sal-mercator-6m-prev.json", "sal-mercator-8m-prev.json", "sal-mercator-10m-prev.json",
-         "sal-mercator-11m-prev.json", "sal-mercator-13m-prev.json", "sal-mercator-16m-prev.json", "sal-mercator-18m-prev.json",
-         "sal-mercator-22m-prev.json", "sal-mercator-25m-prev.json", "sal-mercator-29m-prev.json", "sal-mercator-34m-prev.json",
-         "sal-mercator-40m-prev.json", "sal-mercator-47m-prev.json", "sal-mercator-56m-prev.json", "sal-mercator-66m-prev.json",
-         "sal-mercator-78m-prev.json", "sal-mercator-92m-prev.json", "sal-mercator-110m-prev.json", "sal-mercator-131m-prev.json",
-         "sal-mercator-156m-prev.json", "sal-mercator-186m-prev.json", "sal-mercator-222m-prev.json", "sal-mercator-266m-prev.json",
-         "sal-mercator-318m-prev.json", "sal-mercator-380m-prev.json", "sal-mercator-454m-prev.json", "sal-mercator-541m-prev.json",
-         "sal-mercator-644m-prev.json", "sal-mercator-763m-prev.json", "sal-mercator-902m-prev.json", "sal-mercator-1062m-prev.json",
-         "sal-mercator-1245m-prev.json", "sal-mercator-1452m-prev.json", "sal-mercator-1684m-prev.json", "sal-mercator-1942m-prev.json",
-         "sal-mercator-2225m-prev.json", "sal-mercator-2533m-prev.json", "sal-mercator-2866m-prev.json", "sal-mercator-3221m-prev.json",
-         "sal-mercator-3597m-prev.json", "sal-mercator-3992m-prev.json", "sal-mercator-4405m-prev.json", "sal-mercator-4833m-prev.json",
-         "sal-mercator-5275m-prev.json"]
-writes = ["sal-mercator-*m-prev.json"]
-max_age_hours = 54
-r2_only = true
-namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=sal-mercator-prev"]
-
-[products.sal-mercator-prev.tiles]
-build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=sal-mercator-prev"]
-key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=sal-mercator-prev"]
-cache = "mercator-sal-prev-tiles"
-match = [
-  ["tiles-sal-mercator-*m-prev", "sal-mercator-*m-prev.json"],
-]
-
-[products.ssh-mercator-prev]
-title = "Mercator Ocean sea surface height, the day before"
-step = "mercator-prev"
-roots = ["ssh-mercator-prev.json"]
-writes = ["ssh-mercator-prev.json"]
-max_age_hours = 54
-r2_only = true
-namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=ssh-mercator-prev"]
-
-[products.ssh-mercator-prev.tiles]
-build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=ssh-mercator-prev"]
-key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=ssh-mercator-prev"]
-cache = "mercator-ssh-prev-tiles"
-match = [
-  ["tiles-ssh-mercator-prev", "ssh-mercator-prev.json"],
 ]
 
 # **The surface's fluxes, R2's alone** (2026-10-10): the step `mercator-fluxes`

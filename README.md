@@ -64,8 +64,6 @@ job publishes them beside the rest (the site pipeline's D13, its note of
 | `mld-mercator.json` | the mixed layer's depth, m (`mlotst`: where the potential density first exceeds the surface's by 0.03 kg/m³) | global, 1 degree, and 1/12 degree tiles |
 | `pbo-mercator.json` | the sea water's pressure at the sea floor, dbar (`pbo`) | the same |
 | `ssta-mercator.json` | the model's own SST anomaly, °C (its dataset states no baseline) | the same |
-| `temp-mercator-<depth>m-prev.json`, `sal-mercator-<depth>m-prev.json` (since 2026-10-10's night) | the day before's temperature and salinity at the same 49 levels: one step back on the same daily axis, held to be exactly a day earlier, in a step of its own (`mercator-prev`) | global, 1 degree, and 1/12 degree tiles |
-| `ssh-mercator-prev.json` | the day before's sea surface height | the same |
 | `qnet-mercator.json` | the surface's net heat flux into the ocean, W/m², the day 00–24 UTC: ECMWF IFS's downward shortwave and longwave less the sea's own longwave (σ SST⁴), and the latent and sensible heat by Large & Yeager's (2004, 2009) bulk formulae from ECMWF's 10 m wind, 2 m temperature and dewpoint and surface pressure against this model's SST; ice-covered water left out | global, 0.25 degree (ECMWF's grid) |
 | `emp-mercator.json` | evaporation less precipitation, mm/day, the same day: the bulk formulae's evaporation less ECMWF's total precipitation | the same |
 
@@ -78,6 +76,16 @@ model forced by an atmospheric model forms its own. Each day is held to the
 ice-free ocean's means: net heat within 60 W/m² of zero and evaporation less
 precipitation within 2 mm/day (measured 2026-10-10's 10-11: 7.2 W/m² and
 0.46 mm/day).
+
+
+**Each grid states the span its values cover** (since 2026-10-10): `validFrom`
+and `validTo` in its header, the interval its daily mean covers — the day its 00 UTC stamp begins, measured against the 6-hourly currents.
+**Temperature, salinity and sea surface height publish today and the day ahead**: each
+such root is today's and lists the days it publishes in its header
+(`frames`: each day's time, span, run where there is one, and file); the day
+ahead is the root's name with `.v<its time>` before `.json`
+(`temp-mercator-47m.v20261012T0000Z.json`), with its own tiles (`tiles-<root>.v<its time>/`). A file names one time for as long as it
+exists, and a day no longer published leaves on the next run.
 
 ## What one frame costs, measured 2026-09-01
 
