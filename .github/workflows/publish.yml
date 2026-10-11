@@ -304,6 +304,12 @@ jobs:
           path: ${{ steps.plan.outputs.cache-paths-mercator-bottomdepth-tiles }}
           key: ${{ steps.plan.outputs.cache-key-mercator-bottomdepth-tiles }}
 
+      - name: Restore seafloor tiles
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-seafloor-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-seafloor-tiles }}
+
       - name: Restore mld tiles
         uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
         with:
@@ -433,6 +439,13 @@ jobs:
         with:
           path: ${{ steps.plan.outputs.cache-paths-mercator-bottomdepth-tiles }}
           key: ${{ steps.plan.outputs.cache-key-mercator-bottomdepth-tiles }}
+
+      - name: Save seafloor tiles
+        if: steps.run.outputs.built-mercator-seafloor-tiles == 'true'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
+        with:
+          path: ${{ steps.plan.outputs.cache-paths-mercator-seafloor-tiles }}
+          key: ${{ steps.plan.outputs.cache-key-mercator-seafloor-tiles }}
 
       - name: Save mld tiles
         if: steps.run.outputs.built-mercator-mld-tiles == 'true'

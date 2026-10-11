@@ -41,7 +41,7 @@ timeout_minutes = 30
 # nothing here -- and naming the lane after the service keeps that true when a
 # second Copernicus product lands beside it.
 [steps.mercator]
-cmd = ["python3", "scripts/fetch-mercator.py", "--only=sst-mercator,sss-mercator,ssh-mercator,temp29-mercator,ohc-mercator,sic-mercator,sit-mercator,icevel-mercator,bottomt-mercator,bottoms-mercator,bottomdepth-mercator,mld-mercator,pbo-mercator,ssta-mercator"]
+cmd = ["python3", "scripts/fetch-mercator.py", "--only=sst-mercator,sss-mercator,ssh-mercator,temp29-mercator,ohc-mercator,sic-mercator,sit-mercator,icevel-mercator,bottomt-mercator,bottoms-mercator,bottomdepth-mercator,seafloor-mercator,mld-mercator,pbo-mercator,ssta-mercator"]
 lane = "copernicus"
 
 # **The daily-mean levels, a step of their own on the same lane** (2026-10-10):
@@ -326,6 +326,28 @@ cache = "mercator-bottomdepth-tiles"
 match = [
   ["tiles-bottomdepth-mercator", "bottomdepth-mercator.json"],
   ["tiles-bottomdepth-mercator-f*h", "bottomdepth-mercator-f*h.json"],
+]
+
+# **The model's own sea floor, R2's alone** (2026-10-11): each column's cells
+# summed through the bottom one, where the depth above stops at its middle.
+# Static while the model's grid is: compared once a day, after the step above
+# has read the cell thicknesses for the bottom values' depth, and written again
+# only when its values change -- so its time is when they were first published,
+# and it has no age budget. Its tiles' cache is keyed to that time.
+[products.seafloor-mercator]
+title = "Mercator Ocean depth of the sea floor"
+step = "mercator"
+roots = ["seafloor-mercator.json"]
+writes = ["seafloor-mercator.json"]
+r2_only = true
+namespace = ["python3", "scripts/fetch-mercator.py", "--namespace", "--only=seafloor-mercator"]
+
+[products.seafloor-mercator.tiles]
+build = ["python3", "scripts/fetch-mercator.py", "--tiles", "--only=seafloor-mercator"]
+key = ["python3", "scripts/fetch-mercator.py", "--tile-key", "--only=seafloor-mercator"]
+cache = "mercator-seafloor-tiles"
+match = [
+  ["tiles-seafloor-mercator", "seafloor-mercator.json"],
 ]
 
 # **Three more of the daily 2-D dataset's fields and the model's own SST anomaly,
