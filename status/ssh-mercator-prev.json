@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "ssh-mercator-prev",
+ "title": "Mercator Ocean sea surface height, the day before",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-10-11T04:10:19Z",
+ "updated": "2026-10-11T04:10:19Z",
+ "hour": "2026-10-10T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-10-10T00:00:00Z"
+ ],
+ "files": {
+  "ssh-mercator-prev.json": {
+   "bytes": 365767,
+   "sha256": "ca0520336b01d741fc113e8c85660946884efcc3016065bf5bd033a0fdfe0e13"
+  }
+ },
+ "tiles": {
+  "tiles-ssh-mercator-prev": {
+   "state": "fresh",
+   "reason": null
+  }
+ }
+}

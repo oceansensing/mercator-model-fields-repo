@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "ssh-mercator",
+ "title": "Mercator Ocean sea surface height",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-10-11T04:10:19Z",
+ "updated": "2026-10-11T03:24:58Z",
+ "hour": "2026-10-11T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-10-11T00:00:00Z"
+ ],
+ "files": {
+  "ssh-mercator.json": {
+   "bytes": 365721,
+   "sha256": "bfbc31b7e2848165cc1020df10aca85a33886e73871119d7c286e647a1c5cbe3"
+  }
+ },
+ "tiles": {
+  "tiles-ssh-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}

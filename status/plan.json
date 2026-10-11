@@ -1,0 +1,67 @@
+{
+ "schema": 1,
+ "generated": "2026-10-11T03:53:17Z",
+ "mode": "full",
+ "products": {
+  "sst-mercator": {
+   "tile_key": "sst-mercator20261011T000000Z"
+  },
+  "temp29-mercator": {
+   "tile_key": "temp29-mercator20261011T000000Z"
+  },
+  "ohc-mercator": {
+   "tile_key": "ohc-mercator20261011T000000Z"
+  },
+  "sss-mercator": {
+   "tile_key": "sss-mercator20261011T000000Z"
+  },
+  "ssh-mercator": {
+   "tile_key": "ssh-mercator20261011T000000Z"
+  },
+  "sic-mercator": {
+   "tile_key": "sic-mercator20261011T000000Z"
+  },
+  "sit-mercator": {
+   "tile_key": "sit-mercator20261011T000000Z"
+  },
+  "icevel-mercator": {
+   "tile_key": "icevel-mercator20261011T000000Z"
+  },
+  "bottomt-mercator": {
+   "tile_key": "bottomt-mercator20261011T000000Z"
+  },
+  "bottoms-mercator": {
+   "tile_key": "bottoms-mercator20261011T000000Z"
+  },
+  "bottomdepth-mercator": {
+   "tile_key": "bottomdepth-mercator20261011T000000Z"
+  },
+  "mld-mercator": {
+   "tile_key": "mld-mercator20261011T000000Z"
+  },
+  "pbo-mercator": {
+   "tile_key": "pbo-mercator20261011T000000Z"
+  },
+  "ssta-mercator": {
+   "tile_key": "ssta-mercator20261011T000000Z"
+  },
+  "temp-mercator": {
+   "tile_key": "temp-mercator20261011T000000Z"
+  },
+  "sal-mercator": {
+   "tile_key": "sal-mercator20261011T000000Z"
+  },
+  "w-mercator": {
+   "tile_key": "w-mercator20261011T000000Z"
+  },
+  "temp-mercator-prev": {
+   "tile_key": "temp-mercator-prev20261010T000000Z"
+  },
+  "sal-mercator-prev": {
+   "tile_key": "sal-mercator-prev20261010T000000Z"
+  },
+  "ssh-mercator-prev": {
+   "tile_key": "ssh-mercator-prev20261010T000000Z"
+  }
+ }
+}

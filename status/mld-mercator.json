@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "mld-mercator",
+ "title": "Mercator Ocean mixed layer depth",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-10-11T04:10:19Z",
+ "updated": "2026-10-11T03:24:58Z",
+ "hour": "2026-10-11T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-10-11T00:00:00Z"
+ ],
+ "files": {
+  "mld-mercator.json": {
+   "bytes": 314376,
+   "sha256": "3a9c92b313e7d17548561807e1b9d03eda2dc783c58f20edea157b916d70c31e"
+  }
+ },
+ "tiles": {
+  "tiles-mld-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}
