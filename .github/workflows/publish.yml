@@ -554,7 +554,12 @@ jobs:
     needs: build
     if: needs.build.outputs.deploy == 'true'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # Raised from 30 on 2026-10-11: the day the levels turn over this uploads
+    # about 39,000 tiles (temperature, salinity and w at 49 levels, and the day
+    # ahead's temperature and salinity), and the first such run was cut off at
+    # 30 minutes (15,256 files had taken 26 the run before). Only what changed
+    # is uploaded, so other runs stay short.
+    timeout-minutes: 120
     permissions:
       contents: read
     steps:
