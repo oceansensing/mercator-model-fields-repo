@@ -164,7 +164,7 @@ somebody else's tier.
 ## 2026-09-01 — a 29 m temperature and heat content, the owner's ask
 
 Two more products off the same daily temperature dataset. **`temp29-mercator`**
-is level index 14, 29.445 m -- the owner asked for "30 m (z14)", and the root
+is level index 14, 29.445 m -- 30 m (level 14) was asked for, and the root
 is named for the depth that is actually there, as the currents' `-47m` is;
 one string to change if "30" is preferred. **`ohc-mercator`** is tropical
 cyclone heat potential, the quantity ESPC's `ohc-navy` publishes: every level
