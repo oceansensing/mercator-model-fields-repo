@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "ssta-mercator",
+ "title": "Mercator Ocean sea surface temperature anomaly",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-10-17T21:04:05Z",
+ "updated": "2026-10-17T03:26:15Z",
+ "hour": "2026-10-17T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-10-17T00:00:00Z"
+ ],
+ "files": {
+  "ssta-mercator.json": {
+   "bytes": 316057,
+   "sha256": "241de55ac851f1426ada566c80831aea31de77a0753416894b77c4e6fe3f6022"
+  }
+ },
+ "tiles": {
+  "tiles-ssta-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}

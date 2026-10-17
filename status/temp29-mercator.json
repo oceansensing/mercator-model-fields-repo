@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "temp29-mercator",
+ "title": "Mercator Ocean temperature at 29 m",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-10-17T21:04:05Z",
+ "updated": "2026-10-17T03:26:15Z",
+ "hour": "2026-10-17T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-10-17T00:00:00Z"
+ ],
+ "files": {
+  "temp29-mercator.json": {
+   "bytes": 378200,
+   "sha256": "204e5c6d6766a45e31f7dbacf9e4edc3eb9e3ddadf160bd631907566e3b8ba70"
+  }
+ },
+ "tiles": {
+  "tiles-temp29-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}
