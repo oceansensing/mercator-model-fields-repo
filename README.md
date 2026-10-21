@@ -1,6 +1,6 @@
 # mercator-model-fields-repo
 
-Mercator ocean scalar fields for the C4PO ocean map — **the scalar fields from the same run: temperature at the surface and at 29 m, salinity, sea surface height, and ocean heat content — and, since 2026-09-02, sea ice concentration, thickness and velocity and the bottom temperature**.
+Mercator ocean scalar fields for the oceansensing.org ocean map — **the scalar fields from the same run: temperature at the surface and at 29 m, salinity, sea surface height, and ocean heat content — and, since 2026-09-02, sea ice concentration, thickness and velocity and the bottom temperature**.
 
 **It publishes, since 2026-09-01.** `pipeline/products.toml` declares the
 products, the workflow builds them four times a day, and the site draws
