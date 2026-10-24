@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "bottomdepth-mercator",
+ "title": "Mercator Ocean depth of the bottom values",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-10-24T15:03:56Z",
+ "updated": "2026-10-24T03:25:06Z",
+ "hour": "2026-10-24T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-10-24T00:00:00Z"
+ ],
+ "files": {
+  "bottomdepth-mercator.json": {
+   "bytes": 383254,
+   "sha256": "3fde5abeec57caacd379219818717590f0e80b13e97b25f27653eaa9456bc265"
+  }
+ },
+ "tiles": {
+  "tiles-bottomdepth-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}
