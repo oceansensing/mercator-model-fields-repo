@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "sss-mercator",
+ "title": "Mercator Ocean salinity",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-10-31T09:02:04Z",
+ "updated": "2026-10-31T03:27:50Z",
+ "hour": "2026-10-31T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-10-31T00:00:00Z"
+ ],
+ "files": {
+  "sss-mercator.json": {
+   "bytes": 388258,
+   "sha256": "8022cebfb23bc8a511942091bb8e89c5a5ff16e2758dc34bd93921d5c924b8a0"
+  }
+ },
+ "tiles": {
+  "tiles-sss-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}

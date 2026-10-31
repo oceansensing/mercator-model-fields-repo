@@ -1,0 +1,21 @@
+{
+ "schema": 1,
+ "product": "qnet-mercator",
+ "title": "Mercator Ocean surface net heat flux, by bulk formulae on ECMWF IFS",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-10-31T09:02:04Z",
+ "updated": "2026-10-31T03:27:50Z",
+ "hour": "2026-10-31T00:00:00Z",
+ "modelRun": "2026-10-30T12:00:00Z",
+ "source": "ECMWF IFS open data and Mercator Ocean / Copernicus Marine: Large & Yeager (2004, 2009) bulk formulae",
+ "hours": [
+  "2026-10-31T00:00:00Z"
+ ],
+ "files": {
+  "qnet-mercator.json": {
+   "bytes": 5690254,
+   "sha256": "ea50665cdd34eddecdde029a30ff9f2caaeab94b558e073c1884f777542a3d5e"
+  }
+ }
+}

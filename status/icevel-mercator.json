@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "icevel-mercator",
+ "title": "Mercator Ocean sea ice velocity",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-10-31T09:02:04Z",
+ "updated": "2026-10-31T03:27:50Z",
+ "hour": "2026-10-31T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-10-31T00:00:00Z"
+ ],
+ "files": {
+  "icevel-mercator.json": {
+   "bytes": 596180,
+   "sha256": "af151f382723083b361c3485a5a7f7c3b4e444b2ca2d47bdd68101f2931cf7a8"
+  }
+ },
+ "tiles": {
+  "tiles-icevel-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}

@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "sic-mercator",
+ "title": "Mercator Ocean sea ice concentration",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-10-31T09:02:04Z",
+ "updated": "2026-10-31T03:27:50Z",
+ "hour": "2026-10-31T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-10-31T00:00:00Z"
+ ],
+ "files": {
+  "sic-mercator.json": {
+   "bytes": 280954,
+   "sha256": "0282badf4c88d7b6f675019f5af3de59de10350363700acb4cb7398cc2ea0cb0"
+  }
+ },
+ "tiles": {
+  "tiles-sic-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}

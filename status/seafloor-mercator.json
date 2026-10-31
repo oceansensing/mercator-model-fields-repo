@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "seafloor-mercator",
+ "title": "Mercator Ocean depth of the sea floor",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-10-31T09:02:04Z",
+ "updated": "2026-10-11T20:10:41Z",
+ "hour": "2026-10-11T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-10-11T00:00:00Z"
+ ],
+ "files": {
+  "seafloor-mercator.json": {
+   "bytes": 444816,
+   "sha256": "cf688fd4706a609e3aec80309a8212b0d9c099ee0f3564256cfb3eb6457702bb"
+  }
+ },
+ "tiles": {
+  "tiles-seafloor-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}

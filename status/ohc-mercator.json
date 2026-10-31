@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "ohc-mercator",
+ "title": "Mercator Ocean heat content",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-10-31T09:02:04Z",
+ "updated": "2026-10-31T03:27:50Z",
+ "hour": "2026-10-31T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-10-31T00:00:00Z"
+ ],
+ "files": {
+  "ohc-mercator.json": {
+   "bytes": 330514,
+   "sha256": "a9692de5a431838edfe01a0d0f8a5286b514cf82293e1c87ac47277a7e87bbd7"
+  }
+ },
+ "tiles": {
+  "tiles-ohc-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}

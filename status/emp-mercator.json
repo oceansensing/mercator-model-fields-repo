@@ -1,0 +1,21 @@
+{
+ "schema": 1,
+ "product": "emp-mercator",
+ "title": "Mercator Ocean evaporation less precipitation, by bulk formulae on ECMWF IFS",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-10-31T09:02:04Z",
+ "updated": "2026-10-31T03:27:50Z",
+ "hour": "2026-10-31T00:00:00Z",
+ "modelRun": "2026-10-30T12:00:00Z",
+ "source": "ECMWF IFS open data and Mercator Ocean / Copernicus Marine: Large & Yeager (2004, 2009) bulk formulae",
+ "hours": [
+  "2026-10-31T00:00:00Z"
+ ],
+ "files": {
+  "emp-mercator.json": {
+   "bytes": 5382886,
+   "sha256": "bd8dca538a6da8c3eb9f492bcf1d9c830af4ab66bd9614ed628c97187b8ff0df"
+  }
+ }
+}
