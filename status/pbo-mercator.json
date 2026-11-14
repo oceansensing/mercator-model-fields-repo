@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "pbo-mercator",
+ "title": "Mercator Ocean sea water pressure at the sea floor",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-11-14T09:03:30Z",
+ "updated": "2026-11-14T03:21:19Z",
+ "hour": "2026-11-14T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-11-14T00:00:00Z"
+ ],
+ "files": {
+  "pbo-mercator.json": {
+   "bytes": 421660,
+   "sha256": "aad49e7a4ba1eb99f3b48f3c37fa1b47b238218a620ab7f1f6471b02e34132b4"
+  }
+ },
+ "tiles": {
+  "tiles-pbo-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}

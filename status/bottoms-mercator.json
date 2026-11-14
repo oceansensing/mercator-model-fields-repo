@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "product": "bottoms-mercator",
+ "title": "Mercator Ocean bottom salinity",
+ "fate": "fresh",
+ "reason": null,
+ "checked": "2026-11-14T09:03:30Z",
+ "updated": "2026-11-14T03:21:19Z",
+ "hour": "2026-11-14T00:00:00Z",
+ "modelRun": null,
+ "source": "Mercator Ocean / Copernicus Marine",
+ "hours": [
+  "2026-11-14T00:00:00Z"
+ ],
+ "files": {
+  "bottoms-mercator.json": {
+   "bytes": 388367,
+   "sha256": "2ee3850f5dde6a79b17d47efe6252c284217593276d985718ca8bf753bd32d3c"
+  }
+ },
+ "tiles": {
+  "tiles-bottoms-mercator": {
+   "state": "kept",
+   "reason": null
+  }
+ }
+}
