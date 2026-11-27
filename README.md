@@ -1,134 +1,18 @@
 # mercator-model-fields-repo
 
-Mercator ocean scalar fields for the ocean map — **the scalar fields from the same run: temperature at the surface and at 29 m, salinity, sea surface height, and ocean heat content — and, since 2026-09-02, sea ice concentration, thickness and velocity and the bottom temperature**.
+The scalar fields from Mercator Ocean's global 1/12° analysis and forecast, as
+gridded data for the oceansensing.org ocean map: temperature at the surface
+and at 29 m, salinity, sea surface height, ocean heat content (tropical
+cyclone heat potential), sea ice concentration, thickness and velocity, the
+bottom temperature and salinity, the temperature, salinity and vertical
+velocity at each of the model's levels, the mixed layer's depth, the pressure
+at the sea floor, the model's SST anomaly, and the surface's net heat flux and
+evaporation less precipitation.
 
-**It publishes, since 2026-09-01.** `pipeline/products.toml` declares the
-products, the workflow builds them four times a day, and the site draws
-nine layers under names that carry the model:
+Updated four times a day.
 
-| root | what it is |
-| --- | --- |
-| `sst-mercator.json` | temperature at 0.49 m |
-| `temp29-mercator.json` | temperature at **29.445 m** — the model's level 14, its nearest to ESPC's 30 m |
-| `sss-mercator.json` | salinity at 0.49 m |
-| `ssh-mercator.json` | sea surface height |
-| `ohc-mercator.json` | **tropical cyclone heat potential**, ρ·c_p ∫(T − 26 °C) dz from the 26 °C isotherm to the surface, in kJ/cm², off the daily profile — the same quantity and constants as ESPC's `ohc-navy`, held against ESPC's own function as the oracle |
-| `sic-mercator.json` | sea ice concentration, a fraction, **zeros over open water** as ESPC's `sic-navy` publishes; the map draws it above 15% |
-| `sit-mercator.json` | sea ice thickness in m, **null under 15% concentration** — this model writes 0 m over open water where ESPC writes null, so the two are made to read alike |
-| `icevel-mercator.json` | sea ice velocity, a u/v **pair** in the currents' file shape at 0.001 m/s, one daily frame, null under 15% concentration — without that the whole ocean drifts at exactly zero and the particles draw it as still water |
-| `bottomt-mercator.json` | the model's bottom-layer temperature, everywhere the ocean has a bottom; no depth in the header because it is not a level |
+## Sources and credits
 
-**The layer names carry the depth that is actually there**, not ESPC's
-nearest: 29 m against 30 here, 47 m against 50 in the currents. Naming them
-for ESPC's round numbers so the two lists lined up would say the layers are
-comparable at the same depth when they are not quite; 29.445 against 30 is
-small, and the rule is the rule.
+Generated using E.U. Copernicus Marine Service Information: Mercator Ocean International's Global Ocean Physics Analysis and Forecast, <https://doi.org/10.48670/moi-00016>. Its terms: the [Copernicus Marine Service Commitments and Licence](https://marine.copernicus.eu/user-corner/service-commitments-and-licence).
 
-`PLAN.md` carries the measurements and what is open. `DECISIONS.md` indexes
-the dated one-way decisions. **Which document gets what, and what "update
-docs" means across every
-repository of this project, is the doctrine block at the top of
-`CLAUDE.md`** — the same text in each, held equal by the site's
-`check:docs`.
-
-## What it publishes
-
-| | |
-| --- | --- |
-| source | Mercator Ocean International, via Copernicus Marine (CMEMS) |
-| product | `GLOBAL_ANALYSISFORECAST_PHY_001_024` |
-| dataset | `cmems_mod_glo_phy-thetao / -so / _anfc_0.083deg_P1D-m` |
-| variables | `thetao` (surface, 29 m, and the profile to 300 m for heat content), `so`, `zos`; since 2026-09-02 `siconc`, `sithick`, `usi`/`vsi`, `tob` off the daily 2-D dataset |
-| resolution | **0.083 deg (1/12 deg)**, 2041 x 4320 global |
-| cadence | daily |
-| access | the `copernicusmarine` toolbox over Zarr; account required |
-
-The tree goes to GitHub Pages at
-<https://oceansensing.org/mercator-model-fields-repo/>. The same tree also
-goes to a second host, Cloudflare R2, under this
-repository's name; the site's `pipeline/publish_r2.py` has the rules.
-
-## Published to R2 alone (since 2026-10-10)
-
-Declared `r2_only` in `pipeline/products.toml`: the same run builds these,
-they are left out of this repository's Pages site and its status, and the R2
-job publishes them beside the rest (the site pipeline's D13, its note of
-2026-10-09). Their roots stay on the `published` branch, as every product's do.
-
-| root | quantity | grid |
-| --- | --- | --- |
-| `bottoms-mercator.json` | the model's bottom salinity (`sob`, beside `bottomt-mercator`'s `tob`) | global, 1 degree, and 1/12 degree tiles |
-| `bottomdepth-mercator.json` | the depth at which the bottom values stand, m — the static dataset's cell thicknesses summed to the bottom cell's middle | global, 1 degree, and 1/12 degree tiles |
-| `temp-mercator-<depth>m.json` (since 2026-10-10's afternoon) | the potential temperature at each of the 49 levels from 0.494 to 5274.784 m — every level of the model with water in its daily means (the 50th, 5727.917 m, holds none); the first 36 are those the 0–200, 0–350 and 0–1000 m means read — one root a level named for its depth to the meter (`-0m` … `-5275m`), daily means, in a step of its own (`mercator-levels`) | global, 1 degree, and 1/12 degree tiles |
-| `sal-mercator-<depth>m.json` | the practical salinity at the same 49 levels, daily means | the same |
-| `w-mercator-<depth>m.json` | the vertical velocity at the same 49 levels, daily means, in meters a day to the centimeter (the model's m/s × 86,400) | the same |
-| `mld-mercator.json` | the mixed layer's depth, m (`mlotst`: where the potential density first exceeds the surface's by 0.03 kg/m³) | global, 1 degree, and 1/12 degree tiles |
-| `pbo-mercator.json` | the sea water's pressure at the sea floor, dbar (`pbo`) | the same |
-| `ssta-mercator.json` | the model's own SST anomaly, °C (its dataset states no baseline) | the same |
-| `qnet-mercator.json` | the surface's net heat flux into the ocean, W/m², the day 00–24 UTC: ECMWF IFS's downward shortwave and longwave less the sea's own longwave (σ SST⁴), and the latent and sensible heat by Large & Yeager's (2004, 2009) bulk formulae from ECMWF's 10 m wind, 2 m temperature and dewpoint and surface pressure against this model's SST; ice-covered water left out | global, 0.25 degree (ECMWF's grid) |
-| `emp-mercator.json` | evaporation less precipitation, mm/day, the same day: the bulk formulae's evaporation less ECMWF's total precipitation | the same |
-
-The fluxes use ECMWF's open data (the IFS forecast's
-[open data](https://www.ecmwf.int/en/forecasts/datasets/open-data),
-CC BY 4.0), which carries the radiation and the precipitation but not the
-turbulent fluxes or evaporation; they are formed here, in the site's
-`scripts/fetch-mercator-fluxes.py` and `scripts/bulk.py`, the way an ocean
-model forced by an atmospheric model forms its own. Each day is held to the
-ice-free ocean's means: net heat within 60 W/m² of zero and evaporation less
-precipitation within 2 mm/day (measured 2026-10-10's 10-11: 7.2 W/m² and
-0.46 mm/day).
-
-
-**Each grid states the span its values cover** (since 2026-10-10): `validFrom`
-and `validTo` in its header, the interval its daily mean covers — the day its 00 UTC stamp begins, measured against the 6-hourly currents.
-**Temperature, salinity and sea surface height publish today and the day ahead**: each
-such root is today's and lists the days it publishes in its header
-(`frames`: each day's time, span, run where there is one, and file); the day
-ahead is the root's name with `.v<its time>` before `.json`
-(`temp-mercator-47m.v20261012T0000Z.json`), with its own tiles (`tiles-<root>.v<its time>/`). A file names one time for as long as it
-exists, and a day no longer published leaves on the next run.
-
-## What one frame costs, measured 2026-09-01
-
-| | |
-| --- | --- |
-| one global frame | **33.6 MB** float32 |
-| currents transfer | 0.9 MB/s (36 s a frame) |
-| scalar transfer | 3.6 MB/s (9 s a frame) |
-| depths | 50 levels, 0.49 m to 5727.92 m, priced individually |
-| toolbox install | 22 s |
-
-**Every transfer figure above was measured through the toolbox's DEFAULT dask
-blocks, which read about 26x the bytes a level needs** (found 2026-09-01: 50.7 s
-a level that way, 1.9 s with `chunk_size_limit=0`, on the same store). They
-were true of a path the build no longer takes. The fetcher opens with no dask
-now and refuses a dask-backed array; the site's `PLAN.md` carries the
-measurement and the runner's own numbers are in the run logs, timestamped per
-line.
-
-A build was five scalars in 63 s (run 33578824264), 17 s of it the heat
-content over 29 levels, 62 tropical tiles — the four 2-D products added on
-2026-09-02 cost **34 s** more on the runner too (run 33594265757: nine
-products in 54 s), most of it tiles -- `PLAN.md` has the split; the "20 frames, 672 MB, 12.5
-minutes" once quoted here was a currents figure on the slow path and never
-described this repository. `PLAN.md` has the reasoning.
-
-## Why a second model at all
-
-ESPC stalls, and not in a way retrying fixes: on 2026-08-31 `tds.hycom.org`
-refused every connection for hours, every ESPC tile tier was withdrawn from
-the live map, and all five products were briefly held. A different model is
-the only answer to a run that goes late. This one is the like-for-like
-option — same 1/12 deg, currents and temperature and salinity together.
-
-**It is a PEER, not a fallback** (the owner's call, 2026-09-01). Both models
-are fetched every run and the reader chooses; the contract already carries
-`source` and `modelRun`, and the map already shows them, so which ocean is on
-screen is visible rather than inferred.
-
-## Credentials
-
-Two repository secrets, `COPERNICUSMARINE_SERVICE_USERNAME` and
-`COPERNICUSMARINE_SERVICE_PASSWORD`. **There is no API key** — the toolbox
-takes a username and password and nothing else, and the username is not the
-account email. A Copernicus Marine account is free.
+The fluxes use ECMWF's open data (the IFS forecast's [open data](https://www.ecmwf.int/en/forecasts/datasets/open-data), CC BY 4.0).
